@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33627.172
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netx.Dui", "Netx.Dui\Netx.Dui.csproj", "{01B5A06B-C6F1-474F-AD34-2FE14C393CE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple", "Simple\Simple.csproj", "{2F11F450-2DE6-4774-A301-672BE5C46DB1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01B5A06B-C6F1-474F-AD34-2FE14C393CE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01B5A06B-C6F1-474F-AD34-2FE14C393CE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01B5A06B-C6F1-474F-AD34-2FE14C393CE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01B5A06B-C6F1-474F-AD34-2FE14C393CE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F11F450-2DE6-4774-A301-672BE5C46DB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F11F450-2DE6-4774-A301-672BE5C46DB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F11F450-2DE6-4774-A301-672BE5C46DB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F11F450-2DE6-4774-A301-672BE5C46DB1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {85C6FDE4-9C8F-458F-8253-3DA234869540}
+	EndGlobalSection
+EndGlobal
