@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Netx.Dui
 {
@@ -46,16 +47,41 @@ namespace Netx.Dui
         public void Apply(BaseScheme scheme)
         {
             _scheme = scheme;
-            UpdateBackgrounds();
+            UpdateSkin();
             ColorSchemeChanged?.Invoke(this);
         }
 
         /// <summary>
         /// 更新换色
         /// </summary>
-        private void UpdateBackgrounds()
+        private void UpdateSkin()
         {
-            //TODO:换色
+            foreach(Form form in Application.OpenForms)
+            {
+                if (null == form)
+                    continue;
+                foreach (Control control in form.Controls)
+                {
+                    foreach(var ctl in GetControl(control))
+                    {
+                        ctl.Invalidate();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 遍历所有控件
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
+        private IEnumerable<Control> GetControl(Control control)
+        {
+            yield return control;
+            foreach(Control ctl in control.Controls)
+            {
+                GetControl(ctl);
+            }
         }
     }
 }

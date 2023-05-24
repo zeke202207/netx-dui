@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.dxButton6 = new Netx.Dui.DxControls.DxButton();
+            this.dxButton5 = new Netx.Dui.DxControls.DxButton();
             this.dxButton2 = new Netx.Dui.DxControls.DxButton();
             this.dxButton4 = new Netx.Dui.DxControls.DxButton();
             this.dxButton3 = new Netx.Dui.DxControls.DxButton();
@@ -46,21 +46,40 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(257, 450);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
-            // textBox1
+            // dxButton6
             // 
-            this.textBox1.Location = new System.Drawing.Point(309, 159);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(134, 21);
-            this.textBox1.TabIndex = 4;
+            this.dxButton6.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
+            this.dxButton6.BackGroundDisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(226)))), ((int)(((byte)(255)))));
+            this.dxButton6.BackGroundHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
+            this.dxButton6.BackGroundPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(126)))), ((int)(((byte)(204)))));
+            this.dxButton6.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.dxButton6.Enabled = false;
+            this.dxButton6.FontColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.dxButton6.Image = global::Simple.Properties.Resources.space_demo_members;
+            this.dxButton6.Location = new System.Drawing.Point(372, 12);
+            this.dxButton6.MinimumSize = new System.Drawing.Size(1, 1);
+            this.dxButton6.Name = "dxButton6";
+            this.dxButton6.RoundedRadius = 335F;
+            this.dxButton6.Size = new System.Drawing.Size(50, 50);
+            this.dxButton6.TabIndex = 8;
+            this.dxButton6.Text = null;
             // 
-            // button1
+            // dxButton5
             // 
-            this.button1.Location = new System.Drawing.Point(372, 268);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.dxButton5.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
+            this.dxButton5.BackGroundDisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(226)))), ((int)(((byte)(255)))));
+            this.dxButton5.BackGroundHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
+            this.dxButton5.BackGroundPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(126)))), ((int)(((byte)(204)))));
+            this.dxButton5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.dxButton5.FontColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.dxButton5.Image = null;
+            this.dxButton5.Location = new System.Drawing.Point(300, 11);
+            this.dxButton5.MinimumSize = new System.Drawing.Size(1, 1);
+            this.dxButton5.Name = "dxButton5";
+            this.dxButton5.RoundedRadius = 50F;
+            this.dxButton5.Size = new System.Drawing.Size(55, 55);
+            this.dxButton5.TabIndex = 7;
+            this.dxButton5.Text = "圆形";
             // 
             // dxButton2
             // 
@@ -72,15 +91,15 @@
             this.dxButton2.FontColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.dxButton2.Image = global::Simple.Properties.Resources.space_demo_members;
             this.dxButton2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.dxButton2.Location = new System.Drawing.Point(86, 228);
+            this.dxButton2.Location = new System.Drawing.Point(12, 95);
             this.dxButton2.MinimumSize = new System.Drawing.Size(1, 1);
             this.dxButton2.Name = "dxButton2";
             this.dxButton2.RoundedRadius = 5F;
             this.dxButton2.Size = new System.Drawing.Size(172, 42);
             this.dxButton2.TabIndex = 6;
             this.dxButton2.Text = "dxButton2";
-            this.dxButton2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.dxButton2.TextFont = new System.Drawing.Font("宋体", 13F);
+            this.dxButton2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.dxButton2.Click += new System.EventHandler(this.dxButton2_Click);
             // 
             // dxButton4
             // 
@@ -98,7 +117,6 @@
             this.dxButton4.Size = new System.Drawing.Size(85, 35);
             this.dxButton4.TabIndex = 3;
             this.dxButton4.Text = "测试按钮";
-            this.dxButton4.TextFont = new System.Drawing.Font("宋体", 9F);
             this.dxButton4.UseSkin = false;
             // 
             // dxButton3
@@ -117,7 +135,6 @@
             this.dxButton3.Size = new System.Drawing.Size(85, 35);
             this.dxButton3.TabIndex = 2;
             this.dxButton3.Text = "删除控件";
-            this.dxButton3.TextFont = new System.Drawing.Font("宋体", 13F);
             this.dxButton3.Click += new System.EventHandler(this.dxButton3_Click);
             // 
             // dxButton1
@@ -136,7 +153,6 @@
             this.dxButton1.Size = new System.Drawing.Size(85, 35);
             this.dxButton1.TabIndex = 0;
             this.dxButton1.Text = "添加控件";
-            this.dxButton1.TextFont = new System.Drawing.Font("宋体", 13F);
             this.dxButton1.Click += new System.EventHandler(this.dxButton1_Click);
             // 
             // Form2
@@ -144,17 +160,16 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dxButton6);
+            this.Controls.Add(this.dxButton5);
             this.Controls.Add(this.dxButton2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.dxButton4);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.dxButton3);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.dxButton1);
             this.Name = "Form2";
             this.Text = "Form2";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -164,8 +179,8 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private Netx.Dui.DxControls.DxButton dxButton3;
         private Netx.Dui.DxControls.DxButton dxButton4;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
         private Netx.Dui.DxControls.DxButton dxButton2;
+        private Netx.Dui.DxControls.DxButton dxButton5;
+        private Netx.Dui.DxControls.DxButton dxButton6;
     }
 }

@@ -1,4 +1,5 @@
-﻿using Netx.Dui.DxControls;
+﻿using Netx.Dui;
+using Netx.Dui.DxControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,6 +39,22 @@ namespace Simple
         private void dxButton3_Click(object sender, EventArgs e)
         {
             this.flowLayoutPanel1.Controls.Clear();
+        }
+
+        /// <summary>
+        /// 测试换肤
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dxButton2_Click(object sender, EventArgs e)
+        {
+            using (var form3 = new Form3())
+            {
+                form3.ShowDialog();
+            }
+
+            //var form3 = new Form3();
+            //form3.Show();
         }
     }
 }

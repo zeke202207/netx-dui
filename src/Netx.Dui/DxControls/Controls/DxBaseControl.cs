@@ -27,11 +27,11 @@ namespace Netx.Dui.DxControls
         protected DColor _backGroundPressColor = ColorTranslator.FromHtml("#337ECC").ToDColor();
         protected DColor _backGroundDisabledColor = ColorTranslator.FromHtml("#C6E2FF").ToDColor();
         protected DColor _fontColor = ColorTranslator.FromHtml("#FFFFFF").ToDColor();
-        protected Font _font = new Font("宋体", 13.0f);
+        protected Font _font;
         protected int _borderWidth = 2;
         protected WeightStyle _weightStyle = WeightStyle.Regular;
         protected ItalicStyle _italicStyle = ItalicStyle.Normal;
-        protected string _text = "Dui内容";
+        protected string _text;
         protected ContentAlignment _textAlgin = ContentAlignment.MiddleCenter;
         protected ContentAlignment _imageAlgin = ContentAlignment.MiddleCenter;
         protected System.Drawing.Bitmap _image;
@@ -108,6 +108,7 @@ namespace Netx.Dui.DxControls
             }
         }
 
+        [DefaultValue("Dui")]
         [Description("文本内容"), Category("Dui")]
         public override string Text
         {
@@ -123,9 +124,14 @@ namespace Netx.Dui.DxControls
         }
 
         [Description("字体"), Category("Dui")]
-        public Font TextFont
+        public override Font Font
         {
-            get { return _font; }
+            get 
+            {
+                if (null == _font)
+                    _font = SkinManager.Scheme.fontSchemeColor.Font;
+                return _font;
+            }
             set
             {
                 _font = value;
@@ -343,9 +349,9 @@ namespace Netx.Dui.DxControls
                     this.Width - sizeF.Width - imgTextOffsize,
                     this.Height - offsizeY),
                 imageRect: new RawRectangleF(
-                    imageX + offsizeX, 
+                    imageX, 
                     imageY,
-                    imageX  + sizeF.Width + offsizeX, imageY +  sizeF.Height ));
+                    imageX  + sizeF.Width , imageY +  sizeF.Height ));
         }
 
         /// <summary>

@@ -47,8 +47,9 @@
             this.dxButton1.RoundedRadius = 5F;
             this.dxButton1.Size = new System.Drawing.Size(85, 35);
             this.dxButton1.TabIndex = 0;
-            this.dxButton1.Text = "测试";
-            this.dxButton1.TextFont = new System.Drawing.Font("宋体", 13F);
+            this.dxButton1.Text = "换肤";
+            this.dxButton1.Font = new System.Drawing.Font("宋体", 13F);
+            this.dxButton1.Click += new System.EventHandler(this.dxButton1_Click);
             // 
             // Form3
             // 
