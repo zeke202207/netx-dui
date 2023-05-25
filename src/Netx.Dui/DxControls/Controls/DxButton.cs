@@ -9,12 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
-using DColor = SharpDX.Color;
-using Color = System.Drawing.Color;
-using Font = System.Drawing.Font;
-using SharpDX.Mathematics.Interop;
-using System.Runtime.InteropServices;
-using System.Drawing.Drawing2D;
+using Netx.Dui.Common;
 
 namespace Netx.Dui.DxControls
 {
@@ -83,31 +78,31 @@ namespace Netx.Dui.DxControls
             this.Invalidate();
         }
 
-        protected override void PaintRender(DxDeviceManager context)
+        protected override void OnControlPaint(DuiPaintEventArgs e)
         {
             
         }
 
-        protected override void PaintBackground(DxDeviceManager context)
-        {
-            if(_roundedRadius >= 0)
-            {
-                context.RenderTarget.Clear(this.Parent.BackColor.ToDColor());
-                using (var brush = DefaultBrush(context.RenderTarget, base.BackgroundDColor()))
-                {
-                    var rect = GetSharp();
-                    context.RenderTarget.FillRoundedRectangle(rect, brush);
-                }
-            }
-            else
-                base.PaintBackground(context);
-        }
+       //protected override void PaintBackground(DuiGraphics graphics)
+        //{
+            //if(_roundedRadius >= 0)
+            //{
+            //    context.RenderTarget.Clear(this.Parent.BackColor.ToDColor());
+            //    using (var brush = DefaultBrush(context.RenderTarget, base.BackgroundDColor()))
+            //    {
+            //        var rect = GetSharp();
+            //        context.RenderTarget.FillRoundedRectangle(rect, brush);
+            //    }
+            //}
+            //else
+            //    base.PaintBackground(context);
+        //}
 
         protected override void ReRegion()
         {
-            base.ReRegion();
-            if (_roundedRadius > 0)
-                this.Region = new Region(GetRoundedRectPath(GetSharp()));
+            //base.ReRegion();
+            //if (_roundedRadius > 0)
+            //    this.Region = new Region(GetRoundedRectPath(GetSharp()));
         }
 
         /// <summary>
@@ -129,17 +124,17 @@ namespace Netx.Dui.DxControls
             base.InvokeOnClick(this, EventArgs.Empty);
         }
 
-        /// <summary>
-        /// 获取控件形状 
-        /// </summary>
-        /// <returns></returns>
-        private RoundedRectangle GetSharp()
-        {
-            var rect = new RoundedRectangle();
-            rect.Rect = GetBorderRect();
-            rect.RadiusX = _roundedRadius;
-            rect.RadiusY = _roundedRadius;
-            return rect;
-        }
+        ///// <summary>
+        ///// 获取控件形状 
+        ///// </summary>
+        ///// <returns></returns>
+        //private RoundedRectangle GetSharp()
+        //{
+        //    var rect = new RoundedRectangle();
+        //    rect.Rect = GetBorderRect();
+        //    rect.RadiusX = _roundedRadius;
+        //    rect.RadiusY = _roundedRadius;
+        //    return rect;
+        //}
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Simple
 {
-    partial class Form3
+    partial class Form4
     {
         /// <summary>
         /// Required designer variable.
@@ -39,26 +39,23 @@
             this.dxButton1.BackGroundPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(126)))), ((int)(((byte)(204)))));
             this.dxButton1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dxButton1.FontColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.dxButton1.Image = global::Simple.Properties.Resources.space_demo_members__1_;
-            this.dxButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.dxButton1.Location = new System.Drawing.Point(254, 111);
+            this.dxButton1.Image = null;
+            this.dxButton1.Location = new System.Drawing.Point(146, 67);
             this.dxButton1.MinimumSize = new System.Drawing.Size(1, 1);
             this.dxButton1.Name = "dxButton1";
             this.dxButton1.RoundedRadius = 5F;
-            this.dxButton1.Size = new System.Drawing.Size(130, 34);
+            this.dxButton1.Size = new System.Drawing.Size(110, 45);
             this.dxButton1.TabIndex = 0;
             this.dxButton1.Text = "测试按钮";
-            this.dxButton1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.dxButton1.Click += new System.EventHandler(this.dxButton1_Click);
             // 
-            // Form3
+            // Form4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(663, 358);
+            this.ClientSize = new System.Drawing.Size(800, 596);
             this.Controls.Add(this.dxButton1);
-            this.Name = "Form3";
-            this.Text = "Form3";
+            this.Name = "Form4";
+            this.Text = "Form4";
             this.ResumeLayout(false);
 
         }

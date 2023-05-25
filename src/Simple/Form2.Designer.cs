@@ -55,12 +55,11 @@
             this.dxButton6.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dxButton6.Enabled = false;
             this.dxButton6.FontColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.dxButton6.Image = global::Simple.Properties.Resources.space_demo_members;
             this.dxButton6.Location = new System.Drawing.Point(372, 12);
             this.dxButton6.MinimumSize = new System.Drawing.Size(1, 1);
             this.dxButton6.Name = "dxButton6";
             this.dxButton6.RoundedRadius = 335F;
-            this.dxButton6.Size = new System.Drawing.Size(50, 50);
+            this.dxButton6.Size = new System.Drawing.Size(145, 50);
             this.dxButton6.TabIndex = 8;
             this.dxButton6.Text = null;
             // 
@@ -77,7 +76,7 @@
             this.dxButton5.MinimumSize = new System.Drawing.Size(1, 1);
             this.dxButton5.Name = "dxButton5";
             this.dxButton5.RoundedRadius = 50F;
-            this.dxButton5.Size = new System.Drawing.Size(55, 55);
+            this.dxButton5.Size = new System.Drawing.Size(55, 51);
             this.dxButton5.TabIndex = 7;
             this.dxButton5.Text = "圆形";
             // 
@@ -89,13 +88,12 @@
             this.dxButton2.BackGroundPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(126)))), ((int)(((byte)(204)))));
             this.dxButton2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dxButton2.FontColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.dxButton2.Image = global::Simple.Properties.Resources.space_demo_members;
             this.dxButton2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.dxButton2.Location = new System.Drawing.Point(12, 95);
+            this.dxButton2.Location = new System.Drawing.Point(12, 97);
             this.dxButton2.MinimumSize = new System.Drawing.Size(1, 1);
             this.dxButton2.Name = "dxButton2";
             this.dxButton2.RoundedRadius = 5F;
-            this.dxButton2.Size = new System.Drawing.Size(172, 42);
+            this.dxButton2.Size = new System.Drawing.Size(290, 125);
             this.dxButton2.TabIndex = 6;
             this.dxButton2.Text = "dxButton2";
             this.dxButton2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

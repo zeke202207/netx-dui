@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -60,12 +61,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DuiGraphics\DuiEntities\DuiBitmap.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiBitmapBrush.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiBrush.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiBrushes.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiColor.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiDependentOnRenderTarget.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiDeviceContext.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiFont.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiGraphics.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiGraphicsState.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiImage.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiMatrix.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiPen.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiPens.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiRectangle.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiRectangleF.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiRegion.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiRenderTarget.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiSolidBrush.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiWICRenderTarget.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiWindowRenderTarget.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiGraphics_D2D.cs" />
+    <Compile Include="DuiGraphics\DuiEntities\DuiGraphics_GDIP.cs" />
+    <Compile Include="DuiGraphics\DxConvert.cs" />
+    <Compile Include="DuiGraphics\Extentions\TextFormatExtension.cs" />
+    <Compile Include="DuiGraphics\IDuiGraphics.cs" />
+    <Compile Include="DuiGraphics\ImageDC.cs" />
+    <Compile Include="DxAnimation\MotionEffect\EaseEffect.cs" />
+    <Compile Include="DxAnimation\MotionEffect\ShrinkEffect.cs" />
+    <Compile Include="DxAnimation\MotionEffect\BounceEffect.cs" />
+    <Compile Include="DxAnimation\MotionEffect\ElasticEffect.cs" />
+    <Compile Include="DxAnimation\MotionEffect\UniformEffect.cs" />
+    <Compile Include="DxAnimation\IMotionEffect.cs" />
     <Compile Include="DxControls\Controls\DxBaseControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DxControls\Controls\DxButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DxControls\DuiPaintEventArgs.cs" />
     <Compile Include="DxControls\DxControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -76,27 +111,45 @@
     <Compile Include="DxSkins\Schemes\DefaultScheme.cs" />
     <Compile Include="DxSkins\DxSkinManager.cs" />
     <Compile Include="DuiEnum.cs" />
-    <Compile Include="DX\DxDirectSingleton.cs" />
-    <Compile Include="DX\Extensions\ColorExtension.cs" />
-    <Compile Include="DX\Extensions\ImageExtension.cs" />
-    <Compile Include="DX\Extensions\RectExtension.cs" />
-    <Compile Include="DX\Extensions\TextFormatExtension.cs" />
-    <Compile Include="DX\Helpers\TextFormatHelper.cs" />
-    <Compile Include="DX\Renders\BorderRender.cs" />
-    <Compile Include="DX\Renders\BaseRender.cs" />
     <Compile Include="ISkinManager.cs" />
-    <Compile Include="DX\DxDeviceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Win\WindowsMessage.cs" />
+    <Compile Include="Tools\GdiTools.cs" />
+    <Compile Include="Tools\MatrixTools.cs" />
+    <Compile Include="Win32\Callback\Functions.cs" />
+    <Compile Include="Win32\Const\AC.cs" />
+    <Compile Include="Win32\NativeMethods.cs" />
+    <Compile Include="Win32\Struct\BITMAPINFO.cs" />
+    <Compile Include="Win32\Struct\BITMAPINFOHEADER.cs" />
+    <Compile Include="Win32\Struct\BLENDFUNCTION.cs" />
+    <Compile Include="Win32\Struct\GPRECTF.cs" />
+    <Compile Include="Win32\Struct\INITCOMMONCONTROLSEX.cs" />
+    <Compile Include="Win32\Struct\MEMORYSTATUSEX.cs" />
+    <Compile Include="Win32\Struct\NMCUSTOMDRAW.cs" />
+    <Compile Include="Win32\Struct\NMHDR.cs" />
+    <Compile Include="Win32\Struct\NMTTCUSTOMDRAW.cs" />
+    <Compile Include="Win32\Struct\NMTTDISPINFO.cs" />
+    <Compile Include="Win32\Struct\PAINTSTRUCT.cs" />
+    <Compile Include="Win32\Struct\PCURSORINFO.cs" />
+    <Compile Include="Win32\Struct\POINT.cs" />
+    <Compile Include="Win32\Struct\RECT.cs" />
+    <Compile Include="Win32\Struct\RGBQUAD.cs" />
+    <Compile Include="Win32\Struct\SCROLLBARINFO.cs" />
+    <Compile Include="Win32\Struct\SCROLLINFO.cs" />
+    <Compile Include="Win32\Struct\SIZE.cs" />
+    <Compile Include="Win32\Struct\SP_DEVINFO_DATA.cs" />
+    <Compile Include="Win32\Struct\SYSTEM_INFO.cs" />
+    <Compile Include="Win32\Struct\TOOLINFO.cs" />
+    <Compile Include="Win32\Struct\TRACKMOUSEEVENT.cs" />
+    <Compile Include="Win32\Struct\UPDATELAYEREDWINDOWINFO.cs" />
+    <Compile Include="Win32\Struct\WINDOWINFO.cs" />
+    <Compile Include="Win32\Struct\WINDOWPLACEMENT.cs" />
+    <Compile Include="Win32\WindowsMessage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DxForms\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="DX\Temp.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

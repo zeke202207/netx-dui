@@ -1,23 +1,19 @@
-﻿using SharpDX.Direct2D1;
-using SharpDX.DXGI;
-using SharpDX;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.ComponentModel;
-using System.Runtime.InteropServices;
-using SharpDX.Direct2D1.Effects;
+using Netx.Dui.Common;
+using System.Drawing;
 
 namespace Netx.Dui.DxControls
 {
     
     public abstract class DxControl : Control, ISkinManager
     {
-        private DxDeviceManager d2dManager;
-
         private bool _useSkin = true;
+        protected DuiGraphics duiGraphics = null;
 
         /// <summary>
         /// 皮肤管理
@@ -42,31 +38,51 @@ namespace Netx.Dui.DxControls
             }
         }
 
-        //当alpha通道值为255时，表示完全不透明；当alpha通道值为0时，表示完全透明
-        protected DxControl()
+        /// <summary>
+        /// 
+        /// </summary>
+        public DxControl()
         {
-            //禁用onpaint
-            this.SetStyle(ControlStyles.UserPaint, false);
+            //使用gdi方式打开此设置
+            //this.SetStyle(ControlStyles.ResizeRedraw, true); //调整大小时重绘
+            //this.SetStyle(ControlStyles.DoubleBuffer, true);// 双缓冲
+            //指定控件的样式和行为
+            this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);// 控件透明
+            this.SetStyle(ControlStyles.UserPaint, true); //用户自行重绘
+            this.SetStyle(ControlStyles.Opaque, false);
+            UpdateStyles();
         }
 
         protected override void OnCreateControl()
         {
             base.OnCreateControl();
-            d2dManager = new DxDeviceManager(this);
+            InitD2D();
         }
 
-        private void OnDxPaint()
+        /// <summary> 初始化D2D
+        /// </summary>
+        protected virtual void InitD2D()
         {
-            if (null == this.d2dManager || null == d2dManager.RenderTarget)
-                return;
-            this.d2dManager.RenderTarget.BeginDraw();
-            OnDxPaint(this.d2dManager);
-            this.d2dManager.RenderTarget.EndDraw();
-            //SwapChain 呈现绘制结果。
-            if (this.d2dManager.SupportD3D)
-                this.d2dManager.SwapChain.Present(0, PresentFlags.None);
-            //裁剪region后，导致性能下降
-            //ReRegion();
+            try
+            {
+                this.duiGraphics?.Dispose();
+                this.duiGraphics = null;
+                this.duiGraphics = DuiGraphics.FromControl(this);
+            }
+            catch (Exception ex)
+            {
+                InitD2D();
+            }
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            //Default drawing is d2d, if you want use gdi+ style,please override OnPaint and call <code>duiGraphis = e.Graphics</code> like below:
+            //duiGraphics = e.Graphics;
+            duiGraphics.BeginDraw();
+            OnDuiPaint(new DuiPaintEventArgs(duiGraphics, new RectangleF(0, 0, this.Width, this.Height)));
+            duiGraphics.EndDraw();
         }
 
         /// <summary>
@@ -74,42 +90,9 @@ namespace Netx.Dui.DxControls
         /// </summary>
         /// <param name="d2dContext"></param>
         /// <param name="s"></param>
-        protected virtual void OnDxPaint(DxDeviceManager context)
+        protected virtual void OnDuiPaint(DuiPaintEventArgs e)
         {
-
-        }
-
-        /// <summary>
-        /// 禁用系统绘制
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            //base.OnPaint(e);            
-        }
-
-        protected override void WndProc(ref Message m)
-        {
-            switch(m.Msg)
-            {
-                case WindowsMessage.WM_PAINT:
-                case WindowsMessage.WM_NCPAINT:
-                    OnDxPaint();
-                    break;
-                case WindowsMessage.WM_SIZE:
-                    if (null != this.d2dManager)
-                    {
-                        this.d2dManager.ReAssignResources();
-                        this.Invalidate();
-                    }
-                    break;
-                case WindowsMessage.WM_DESTROY:
-                    this.d2dManager.Dispose();
-                    break;
-                default:
-                    break;
-            }
-            base.WndProc(ref m);
+            
         }
 
         /// <summary>
