@@ -38,14 +38,15 @@
             this.dxButton1.BackGroundHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
             this.dxButton1.BackGroundPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(126)))), ((int)(((byte)(204)))));
             this.dxButton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.dxButton1.DFont = new System.Drawing.Font("宋体", 9F);
             this.dxButton1.FontColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.dxButton1.Image = global::Simple.Properties.Resources.space_demo_members__1_;
             this.dxButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.dxButton1.Location = new System.Drawing.Point(254, 111);
+            this.dxButton1.Location = new System.Drawing.Point(238, 76);
             this.dxButton1.MinimumSize = new System.Drawing.Size(1, 1);
             this.dxButton1.Name = "dxButton1";
-            this.dxButton1.RoundedRadius = 5F;
-            this.dxButton1.Size = new System.Drawing.Size(130, 34);
+            this.dxButton1.Radius = 5F;
+            this.dxButton1.Size = new System.Drawing.Size(106, 32);
             this.dxButton1.TabIndex = 0;
             this.dxButton1.Text = "测试按钮";
             this.dxButton1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -59,6 +60,7 @@
             this.Controls.Add(this.dxButton1);
             this.Name = "Form3";
             this.Text = "Form3";
+            this.Load += new System.EventHandler(this.Form3_Load);
             this.ResumeLayout(false);
 
         }

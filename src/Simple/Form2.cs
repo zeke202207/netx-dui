@@ -28,7 +28,7 @@ namespace Simple
             for (int i = 0; i < 800; i++)
             {
                 Console.WriteLine(i.ToString());
-                var btn = new DxButton() { Text = $"按钮-{i.ToString()}", RoundedRadius = 0 };
+                var btn = new DxButton() { Text = $"按钮-{i.ToString()}", Radius = 0 };
                 flowLayoutPanel1.Controls.Add(new DxButton() { Text = $"按钮-{i.ToString()}" });
                 //flowLayoutPanel1.Controls.Add(new Button() { Text = $"按钮-{i.ToString()}" });
             }

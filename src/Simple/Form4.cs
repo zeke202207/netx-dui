@@ -15,5 +15,10 @@ namespace Simple
         {
             InitializeComponent();
         }
+
+        private void dxButton1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

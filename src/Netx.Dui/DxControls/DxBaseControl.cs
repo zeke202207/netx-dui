@@ -118,9 +118,9 @@ namespace Netx.Dui.DxControls
         }
 
         [Description("字体"), Category("Dui")]
-        public override Font Font
+        public Font DFont
         {
-            get 
+            get
             {
                 if (null == _font)
                     _font = SkinManager.Scheme.fontSchemeColor.Font;
@@ -128,6 +128,8 @@ namespace Netx.Dui.DxControls
             }
             set
             {
+                if (null == value)
+                    _font = SkinManager.Scheme.fontSchemeColor.Font;
                 _font = value;
                 _weightStyle = _font.Bold ? WeightStyle.Bold : WeightStyle.Regular;
                 _italicStyle = _font.Italic ? ItalicStyle.Italic : ItalicStyle.Normal;
@@ -199,6 +201,32 @@ namespace Netx.Dui.DxControls
 
         #endregion
 
+        #region 停用属性
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Description("字体"), Category("Dui")]
+        public override Font Font
+        {
+            get
+            {
+                if (null == _font)
+                    _font = SkinManager.Scheme.fontSchemeColor.Font;
+                return _font;
+            }
+            set
+            {
+                if (null == value)
+                    _font = SkinManager.Scheme.fontSchemeColor.Font;
+                _font = value;
+                _weightStyle = _font.Bold ? WeightStyle.Bold : WeightStyle.Regular;
+                _italicStyle = _font.Italic ? ItalicStyle.Italic : ItalicStyle.Normal;
+                this.Invalidate();
+            }
+        }
+
+        #endregion
+
         public DxBaseControl()
         {
             //this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
@@ -212,6 +240,7 @@ namespace Netx.Dui.DxControls
         /// <param name="context"></param>
         protected override void OnDuiPaint(DuiPaintEventArgs e)
         {
+            e.Graphics.Clear(this.Parent.BackColor);
             DuiGraphicsState backupGraphicsState = e.Graphics.Save();
             //TODO:
             //e.Graphics.TranslateTransform(this.X, this.Y); //偏移一下坐标系将控件的坐标定义为坐标系原点
@@ -282,23 +311,17 @@ namespace Netx.Dui.DxControls
             if (null != this.Parent?.BackColor)
                 g.Clear(this.Parent.BackColor);
             var borderRect = GetBorderRect();
-            using (var pen = new DuiPen(_backGroundColor))
+            using (var pen = new DuiPen(BackgroundColor()))
             {
+                pen.Width = this.BorderWidth;
                 g.DrawRectangle(pen, borderRect);
                 using (var backgroundBrush = new DuiSolidBrush(BackgroundColor()))
                 {
-                    g.FillRectangle(backgroundBrush, borderRect);
+                    var fillRect = new Rectangle(2, 2, borderRect.Width -1, borderRect.Height - 1);
+                    fillRect.Inflate(-1,-1);
+                    g.FillRectangle(backgroundBrush, fillRect);
                 }
             }
-            //using (var bgBrush = DefaultBrush(context.RenderTarget, BackgroundDColor()))
-            //{
-            //    if (null != this.Parent?.BackColor)
-            //        context.RenderTarget.Clear(this.Parent.BackColor);
-            //    var borderRect = GetBorderRect();
-            //    context.RenderTarget.DrawRectangle(borderRect, bgBrush, _borderWidth);
-            //    var fillRect = borderRect.Inflate(-2, -2, -1);
-            //    context.RenderTarget.FillRectangle(fillRect, bgBrush);
-            //}
         }
 
         /// <summary>
@@ -311,7 +334,7 @@ namespace Netx.Dui.DxControls
             var rectImage = RectangleF.Empty;
             if (null != _image)
             {
-                rectImage = GetImageRect(e.ClipRectangle, _imageAlgin, new Size(_image.Width, _image.Height));
+                rectImage = GetIconRect(e.ClipRectangle, _imageAlgin, new Size(_image.Width, _image.Height));
                 g.DrawImage(DuiImage.FromImage(_image), rectImage);
             }
         }
@@ -325,7 +348,7 @@ namespace Netx.Dui.DxControls
             var g = e.Graphics;
             var rectImage = RectangleF.Empty;
             if (null != _image)
-                rectImage = GetImageRect(e.ClipRectangle, _imageAlgin, new Size(_image.Width, _image.Height));
+                rectImage = GetIconRect(e.ClipRectangle, _imageAlgin, new Size(_image.Width, _image.Height));
             if (!string.IsNullOrWhiteSpace(_text))
             {
                 var rectText = GetTextRect(e.ClipRectangle, rectImage, _imageAlgin, _textAlgin);
@@ -383,7 +406,7 @@ namespace Netx.Dui.DxControls
         /// </summary>
         /// <param name="image"></param>
         /// <returns></returns>
-        protected virtual RectangleF GetImageRect(RectangleF clipRectangle, ContentAlignment imageAlign , Size imageSize)
+        protected virtual RectangleF GetIconRect(RectangleF clipRectangle, ContentAlignment imageAlign , Size imageSize)
         {
             //TODO: 这里可以优化，目前没有适配所有的align
             float offsizeX = 5;
@@ -551,82 +574,6 @@ namespace Netx.Dui.DxControls
             //        imageX,
             //        imageY,
             //        imageX + sizeF.Width, imageY + sizeF.Height));
-        }
-
-        ///// <summary>
-        ///// 默认笔刷
-        ///// </summary>
-        ///// <param name="target"></param>
-        ///// <param name="color"></param>
-        ///// <returns></returns>
-        //protected Brush DefaultBrush(RenderTarget target, DColor color)
-        //{
-        //    return new SolidColorBrush(target, color);
-        //}
-
-        ///// <summary>
-        ///// 获取背景颜色
-        ///// </summary>
-        ///// <returns></returns>
-        //protected virtual DColor BackgroundDColor()
-        //{
-        //    if (!this.Enabled)
-        //        return UseSkin ? SkinManager.Scheme.bgSchemeColor.DisabledColor : _backGroundDisabledColor;
-        //    switch (_mouseStatus)
-        //    {
-        //        default:
-        //        case MouseStatus.Default:
-        //            return UseSkin ? SkinManager.Scheme.bgSchemeColor.Primary : _backGroundColor;
-        //        case MouseStatus.Hover:
-        //            return UseSkin ? SkinManager.Scheme.bgSchemeColor.HoverColor : _backGroundHoverColor;
-        //        case MouseStatus.Pressed:
-        //            return UseSkin ? SkinManager.Scheme.bgSchemeColor.PressedColor : _backGroundPressColor;
-        //    }
-        //}
-
-        ///// <summary>
-        ///// 文本颜色
-        ///// </summary>
-        ///// <returns></returns>
-        //protected virtual DColor TextDColor()
-        //{
-        //    return UseSkin ? SkinManager.Scheme.fontSchemeColor.Primary : _fontColor;
-        //}
-
-        ///// <summary>
-        ///// 获取字体
-        ///// </summary>
-        ///// <returns></returns>
-        //protected virtual Font TextDFont()
-        //{
-        //    return UseSkin ? SkinManager.Scheme.fontSchemeColor.Font : this._font;
-        //}
-
-        ///// <summary>
-        ///// 获取圆角矩形Path
-        ///// this.Region = new Region(GetRoundedRectPath(rect));
-        ///// </summary>
-        ///// <param name="roundRect"></param>
-        ///// <returns></returns>
-        //protected GraphicsPath GetRoundedRectPath(RoundedRectangle roundRect)
-        //{
-        //    float diameter = roundRect.RadiusX;
-        //    System.Drawing.RectangleF arcRect = new System.Drawing.RectangleF(roundRect.Rect.Left, roundRect.Rect.Top, diameter, diameter);
-        //    GraphicsPath path = new GraphicsPath();
-        //    path.AddArc(arcRect, 180, 90);
-        //    arcRect.X = roundRect.Rect.Right - diameter;
-        //    path.AddArc(arcRect, 270, 90);
-        //    arcRect.Y = roundRect.Rect.Bottom - diameter;
-        //    path.AddArc(arcRect, 0, 90);
-        //    arcRect.X = roundRect.Rect.Left;
-        //    path.AddArc(arcRect, 90, 90);
-        //    path.CloseFigure();
-        //    return path;
-        //}
-
-        protected override void ReRegion()
-        {
-            base.ReRegion();
         }
 
     }

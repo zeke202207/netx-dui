@@ -1,8 +1,4 @@
-﻿using SharpDX;
-using SharpDX.Direct2D1;
-using SharpDX.DirectWrite;
-using SharpDX.DXGI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -18,19 +14,19 @@ namespace Netx.Dui.DxControls
     [ToolboxItem(true)]
     public class DxButton : DxBaseControl, IButtonControl
     {
-        private float _roundedRadius = 5.0f;
+        private float _radius = 0.0f;
 
         [Description("边框圆角半径(RoundedBorder为True生效)"), Category("Dui")]
         [DefaultValue(0.0f)]
-        public float RoundedRadius
+        public float Radius
         {
             get
             {
-                return _roundedRadius;
+                return _radius;
             }
             set
             {
-                _roundedRadius = Math.Max(value, 0.0f);
+                _radius = Math.Max(value, 0.0f);
                 this.Invalidate();
             }
         }
@@ -83,26 +79,28 @@ namespace Netx.Dui.DxControls
             
         }
 
-       //protected override void PaintBackground(DuiGraphics graphics)
-        //{
-            //if(_roundedRadius >= 0)
-            //{
-            //    context.RenderTarget.Clear(this.Parent.BackColor.ToDColor());
-            //    using (var brush = DefaultBrush(context.RenderTarget, base.BackgroundDColor()))
-            //    {
-            //        var rect = GetSharp();
-            //        context.RenderTarget.FillRoundedRectangle(rect, brush);
-            //    }
-            //}
-            //else
-            //    base.PaintBackground(context);
-        //}
-
-        protected override void ReRegion()
+        protected override void PaintBackground(DuiPaintEventArgs e)
         {
-            //base.ReRegion();
-            //if (_roundedRadius > 0)
-            //    this.Region = new Region(GetRoundedRectPath(GetSharp()));
+            if (_radius >= 0)
+            {
+                var g = e.Graphics;
+                DuiGraphicsState backupOnPaintBackgroundGraphicsState = g.Save();
+                if (null != this.Parent?.BackColor)
+                    g.Clear(this.Parent.BackColor);
+                using (var pen = new DuiPen(BackgroundColor()))
+                {
+                    pen.Width = base.BorderWidth;
+                    var borderRect = base.GetBorderRect();
+                    g.DrawRoundedRectangle(pen, borderRect, _radius);
+                    using (var backgroundBrush = new DuiSolidBrush(BackgroundColor()))
+                    {
+                        g.FillRoundedRectangle(backgroundBrush, borderRect, _radius);
+                    }
+                }
+                e.Graphics.Restore(backupOnPaintBackgroundGraphicsState);
+            }
+            else
+                base.PaintBackground(e);
         }
 
         /// <summary>
@@ -123,18 +121,5 @@ namespace Netx.Dui.DxControls
                 return;
             base.InvokeOnClick(this, EventArgs.Empty);
         }
-
-        ///// <summary>
-        ///// 获取控件形状 
-        ///// </summary>
-        ///// <returns></returns>
-        //private RoundedRectangle GetSharp()
-        //{
-        //    var rect = new RoundedRectangle();
-        //    rect.Rect = GetBorderRect();
-        //    rect.RadiusX = _roundedRadius;
-        //    rect.RadiusY = _roundedRadius;
-        //    return rect;
-        //}
     }
 }

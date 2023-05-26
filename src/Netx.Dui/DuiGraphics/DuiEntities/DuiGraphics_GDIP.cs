@@ -47,6 +47,7 @@ namespace Netx.Dui
                 }
             }
         }
+
         public DuiTextRenderingHint TextRenderingHint
         {
             get
@@ -73,6 +74,7 @@ namespace Netx.Dui
                 }
             }
         }
+
         public DuiMatrix Transform
         {
             get
@@ -84,54 +86,70 @@ namespace Netx.Dui
                 this.graphics.Transform = value;
             }
         }
+
         public float DpiX { get { return this.graphics.DpiX; } }
+
         public float DpiY { get { return this.graphics.DpiY; } }
+
         public Region Clip
         {
             get { return this.clip; }
             set { this.clip = value; }
         }
+
         public RectangleF ClipBounds
         {
             get { return this.clip == null ? RectangleF.Empty: this.clip.GetBounds(this.graphics); }
         }
+
         #endregion
+
         #region 构造函数
+
         public DuiGraphics_GDIP(IntPtr handle)
         {
             this.graphics = Graphics.FromHwnd(handle);
             //this.maxSize = Control.FromHandle(handle).Size;
         }
+
         public DuiGraphics_GDIP(Graphics graphics)
         {
             this.graphics = graphics;
             //this.maxSize = Control.FromHandle(handle).Size;
         }
+
         #endregion
+
         #region 函数
+
         public DuiGraphicsState Save()
         {
             return DxConvert.ToDUIGraphicsState(this.graphics.Save());
         }
+
         public void Restore(DuiGraphicsState graphicsState)
         {
             this.graphics.Restore(graphicsState);
         }
+
         public void BeginDraw(Region r)
         {
             this.Clip = r;
             RectangleF clipBounds = this.ClipBounds;
             this.PushLayer(clipBounds.X, clipBounds.Y, clipBounds.Width, clipBounds.Height);
         }
+
         public void Clear(Color color)
         {
             this.graphics.Clear(color);
         }
+
         public void EndDraw()
         {
             this.PopLayer(false);
             this.ResetTransform();
         }
+
         public void ResetTransform()
         {
             this.graphics.ResetTransform();
@@ -140,78 +158,110 @@ namespace Netx.Dui
         {
 
         }
+
         #endregion
+
         #region RoundedRectangle
+
         public void DrawRoundedRectangle(DuiPen pen, float x, float y, float width, float height, float radius)
         {
             if (width <= 0 || height <= 0) { return; }
             this.graphics.DrawPath(pen, GdiTools.GetRoundRectangleF(new RectangleF(x, y, width, height), radius));
         }
+
         public void FillRoundedRectangle(DuiBrush brush, float x, float y, float width, float height, float radius)
         {
             if (width <= 0 || height <= 0) { return; }
             this.graphics.FillPath(brush, GdiTools.GetRoundRectangleF(new RectangleF(x, y, width, height), radius));
         }
+
         #endregion
+
         #region Rectangle
+
         public void DrawRectangle(DuiPen pen, float x, float y, float width, float height)
         {
             this.graphics.DrawRectangle(pen, x, y, width, height);
         }
+
         public void FillRectangle(DuiBrush brush, float x, float y, float width, float height)
         {
             this.graphics.FillRectangle(brush, x, y, width, height);
         }
+
         #endregion
+
         #region Ellipse
+
         public void DrawEllipse(DuiPen pen, float x, float y, float width, float height)
         {
             this.graphics.DrawEllipse(pen, x, y, width, height);
         }
+
         public void FillEllipse(DuiBrush brush, float x, float y, float width, float height)
         {
             this.graphics.FillEllipse(brush, x, y, width, height);
         }
+
         #endregion
+
         #region Polygon
+
         public void DrawPolygon(DuiPen pen, PointF[] points)
         {
             this.graphics.DrawPolygon(pen, points);
         }
+
         public void FillPolygon(DuiBrush brush, PointF[] points)
         {
             this.graphics.FillPolygon(brush, points);
         }
+
         #endregion
+
         #region Region
+
         public void FillRegion(DuiBrush brush, DuiRegion region)
         {
             this.graphics.FillRegion(brush, region);
         }
+
         #endregion
+
         #region Line
+
         public void DrawLine(DuiPen pen, float x1, float y1, float x2, float y2)
         {
             this.graphics.DrawLine(pen, x1, y1, x2, y2);
         }
+
         #endregion
+
         #region Bezier
+
         public void DrawBezier(DuiPen pen, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4)
         {
             this.graphics.DrawBezier(pen, x1, y1, x2, y2, x3, y3, x4, y4);
         }
+
         #endregion
+
         #region String
+
         public SizeF MeasureString(string text, DuiFont font, float width, float height)
         {
             return this.graphics.MeasureString(text, font, new SizeF(width, height));
         }
+
         public void DrawString(string s, DuiFont font, DuiBrush brush, RectangleF layoutRectangle, StringFormat format)
         {
             this.graphics.DrawString(s, font, brush, layoutRectangle, format);
         }
+
         #endregion
+
         #region Image
+
         public void DrawImage(DuiImage image, RectangleF destRect, RectangleF srcRect, GraphicsUnit srcUnit, float opacity)
         {
             ColorMatrix clrMatrix = new ColorMatrix(new float[][] { new float[] { 1, 0, 0, 0, 0 }, new float[] { 0, 1, 0, 0, 0 }, new float[] { 0, 0, 1, 0, 0 }, new float[] { 0, 0, 0, (float)opacity, 0 }, new float[] { 0, 0, 0, 0, 1 } });
@@ -220,6 +270,7 @@ namespace Netx.Dui
             this.graphics.DrawImage(image, Rectangle.Ceiling(destRect), srcRect.X, srcRect.Y, srcRect.Width, srcRect.Height, GraphicsUnit.Pixel, imgAttributes);
             //this.graphics.DrawImage(image, destRect, srcRect, GraphicsUnit.Pixel);
         }
+
         public void DrawImage(DuiImage image, PointF[] destTriangle, PointF[] srcTriangle, GraphicsUnit srcUnit, float opacity)
         {
             ColorMatrix clrMatrix = new ColorMatrix(new float[][] { new float[] { 1, 0, 0, 0, 0 }, new float[] { 0, 1, 0, 0, 0 }, new float[] { 0, 0, 1, 0, 0 }, new float[] { 0, 0, 0, (float)opacity, 0 }, new float[] { 0, 0, 0, 0, 1 } });
@@ -243,20 +294,26 @@ namespace Netx.Dui
                 this.graphics.FillPolygon(tb, polygon);
             }
         }
+
         #endregion
+
         #region Transform
+
         public void TranslateTransform(float dx, float dy)
         {
             this.graphics.TranslateTransform(dx, dy);
         }
+
         public void ScaleTransform(float sx, float sy)
         {
             this.graphics.ScaleTransform(sx, sy);
         }
+
         public void RotateTransform(float angle)
         {
             this.graphics.RotateTransform(angle);
         }
+
         public void SkewTransform(float sx, float sy)
         {
             float shearX = (float)(1 / Math.Tan(Math.PI / 180 * (90 - sy / Math.PI * 180)));
@@ -265,9 +322,13 @@ namespace Netx.Dui
             m.Shear(shearX, shearY);
             this.graphics.Transform = m;
         }
+
         #endregion
+
         #region Layer
+
         RectangleF lastLayerBounds = RectangleF.Empty;
+
         public void PushLayer(float x, float y, float width, float height)
         {
             if (width == 0 || height == 0) { this.layerStacks.Push(null); return; }
@@ -293,6 +354,7 @@ namespace Netx.Dui
         {
             PopLayer(true);
         }
+
         private void PopLayer(bool isGdip)
         {
             Layer layer = this.layerStacks.Pop();
@@ -308,6 +370,7 @@ namespace Netx.Dui
             }
             layer.Dispose();
         }
+
         /// <summary> GDI+图层对象
         /// </summary>
         private class Layer : IDisposable
@@ -378,13 +441,18 @@ namespace Netx.Dui
                 }
             }
         }
+
         #endregion
+
         #region IDisposable
+
         public void Dispose()
         {
             this.graphics.Dispose();
         }
+
         #endregion
+
         public override bool Equals(object obj)
         {
             DuiGraphics_GDIP dUIGraphics_GDIP = obj as DuiGraphics_GDIP;
@@ -397,6 +465,7 @@ namespace Netx.Dui
                 return this.graphics.Equals(dUIGraphics_GDIP.graphics);
             }
         }
+
         public override int GetHashCode()
         {
             return base.GetHashCode();

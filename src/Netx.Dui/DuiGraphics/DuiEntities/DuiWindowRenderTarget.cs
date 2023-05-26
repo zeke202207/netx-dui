@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharpDX;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -46,6 +47,13 @@ namespace Netx.Dui
             {
                 AntialiasMode = SharpDX.Direct2D1.AntialiasMode.Aliased,
                 TextAntialiasMode = SharpDX.Direct2D1.TextAntialiasMode.Aliased
+            };
+            // 在控件大小被改变的时候必须改变渲染目标的大小，
+            // 否则会导致绘制结果被拉伸，引起失真。
+            var handleControl = System.Windows.Forms.Control.FromHandle(handle);
+            handleControl.SizeChanged += (s, e) =>
+            {
+                windowRenderTarget.Resize(new Size2(handleControl.ClientSize.Width, handleControl.ClientSize.Height));
             };
         }
 

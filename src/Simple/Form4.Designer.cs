@@ -28,8 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form4));
+            this.dxLable1 = new Netx.Dui.DxControls.Controls.DxLable();
             this.dxButton1 = new Netx.Dui.DxControls.DxButton();
             this.SuspendLayout();
+            // 
+            // dxLable1
+            // 
+            this.dxLable1.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
+            this.dxLable1.BackGroundDisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(226)))), ((int)(((byte)(255)))));
+            this.dxLable1.BackGroundHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
+            this.dxLable1.BackGroundPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(126)))), ((int)(((byte)(204)))));
+            this.dxLable1.Center = ((System.Drawing.PointF)(resources.GetObject("dxLable1.Center")));
+            this.dxLable1.FontColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.dxLable1.Image = null;
+            this.dxLable1.Location = new System.Drawing.Point(3, 2);
+            this.dxLable1.Name = "dxLable1";
+            this.dxLable1.Rotate = 30F;
+            this.dxLable1.Size = new System.Drawing.Size(142, 110);
+            this.dxLable1.TabIndex = 1;
+            this.dxLable1.Text = "dxLable1";
+            this.dxLable1.UseSkin = false;
             // 
             // dxButton1
             // 
@@ -43,16 +62,18 @@
             this.dxButton1.Location = new System.Drawing.Point(146, 67);
             this.dxButton1.MinimumSize = new System.Drawing.Size(1, 1);
             this.dxButton1.Name = "dxButton1";
-            this.dxButton1.RoundedRadius = 5F;
+            this.dxButton1.Radius = 5F;
             this.dxButton1.Size = new System.Drawing.Size(110, 45);
             this.dxButton1.TabIndex = 0;
             this.dxButton1.Text = "测试按钮";
+            this.dxButton1.Click += new System.EventHandler(this.dxButton1_Click);
             // 
             // Form4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 596);
+            this.Controls.Add(this.dxLable1);
             this.Controls.Add(this.dxButton1);
             this.Name = "Form4";
             this.Text = "Form4";
@@ -63,5 +84,6 @@
         #endregion
 
         private Netx.Dui.DxControls.DxButton dxButton1;
+        private Netx.Dui.DxControls.Controls.DxLable dxLable1;
     }
 }

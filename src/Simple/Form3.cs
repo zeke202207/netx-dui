@@ -26,5 +26,10 @@ namespace Simple
             else
                 DxSkinManager.Instance.Apply(new DefaultScheme());
         }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -44,10 +44,10 @@ namespace Netx.Dui.DxControls
         public DxControl()
         {
             //使用gdi方式打开此设置
-            //this.SetStyle(ControlStyles.ResizeRedraw, true); //调整大小时重绘
             //this.SetStyle(ControlStyles.DoubleBuffer, true);// 双缓冲
             //指定控件的样式和行为
             this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);// 控件透明
+            this.SetStyle(ControlStyles.ResizeRedraw, true);
             this.SetStyle(ControlStyles.UserPaint, true); //用户自行重绘
             this.SetStyle(ControlStyles.Opaque, false);
             UpdateStyles();
@@ -68,6 +68,8 @@ namespace Netx.Dui.DxControls
                 this.duiGraphics?.Dispose();
                 this.duiGraphics = null;
                 this.duiGraphics = DuiGraphics.FromControl(this);
+                this.duiGraphics.SmoothingMode = DuiSmoothingMode.AntiAlias;
+                this.duiGraphics.TextRenderingHint = DuiTextRenderingHint.AntiAlias;
             }
             catch (Exception ex)
             {
@@ -108,14 +110,6 @@ namespace Netx.Dui.DxControls
                     return true;
                 return false;
             }
-        }
-
-        /// <summary>
-        /// 重新region控件形状
-        /// </summary>
-        protected virtual void ReRegion()
-        {
-
         }
     }
 }
