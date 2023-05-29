@@ -94,6 +94,9 @@
     <Compile Include="DxAnimation\MotionEffect\ElasticEffect.cs" />
     <Compile Include="DxAnimation\MotionEffect\UniformEffect.cs" />
     <Compile Include="DxAnimation\IMotionEffect.cs" />
+    <Compile Include="DxControls\Controls\DxTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DxControls\Controls\DxLable.cs">
       <SubType>Component</SubType>
     </Compile>
