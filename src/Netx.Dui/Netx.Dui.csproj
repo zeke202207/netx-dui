@@ -88,12 +88,6 @@
     <Compile Include="DuiGraphics\Extentions\TextFormatExtension.cs" />
     <Compile Include="DuiGraphics\IDuiGraphics.cs" />
     <Compile Include="DuiGraphics\ImageDC.cs" />
-    <Compile Include="DxAnimation\MotionEffect\EaseEffect.cs" />
-    <Compile Include="DxAnimation\MotionEffect\ShrinkEffect.cs" />
-    <Compile Include="DxAnimation\MotionEffect\BounceEffect.cs" />
-    <Compile Include="DxAnimation\MotionEffect\ElasticEffect.cs" />
-    <Compile Include="DxAnimation\MotionEffect\UniformEffect.cs" />
-    <Compile Include="DxAnimation\IMotionEffect.cs" />
     <Compile Include="DxControls\Controls\DxTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -155,6 +149,7 @@
     <Compile Include="Win32\WindowsMessage.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DxAnimation\" />
     <Folder Include="DxForms\" />
   </ItemGroup>
   <ItemGroup>
