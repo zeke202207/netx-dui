@@ -13,7 +13,7 @@ namespace Netx.Dui.DxControls
     public abstract class DxControl : Control, ISkinManager
     {
         private bool _useSkin = true;
-        protected DuiGraphics duiGraphics = null;
+        internal IPaintManager _paintManager = new PaintManager();
 
         /// <summary>
         /// 皮肤管理
@@ -43,48 +43,29 @@ namespace Netx.Dui.DxControls
         /// </summary>
         public DxControl()
         {
-            //使用gdi方式打开此设置
-            //this.SetStyle(ControlStyles.DoubleBuffer, true);// 双缓冲
-            //指定控件的样式和行为
-            this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);// 控件透明
-            this.SetStyle(ControlStyles.ResizeRedraw, true);
-            this.SetStyle(ControlStyles.UserPaint, true); //用户自行重绘
-            this.SetStyle(ControlStyles.Opaque, false);
+            SetStyle(ControlStyles.AllPaintingInWmPaint
+               | ControlStyles.SupportsTransparentBackColor
+               | ControlStyles.ResizeRedraw,
+               true);
+            SetStyle(ControlStyles.UserPaint
+                | ControlStyles.Opaque,
+                false);
             UpdateStyles();
         }
 
-        protected override void OnCreateControl()
+        #region override
+
+        protected override void WndProc(ref Message m)
         {
-            base.OnCreateControl();
-            InitD2D();
+            base.WndProc(ref m);
+            _paintManager.WndProcHandler(this, m.Msg, OnPaint);
         }
 
-        /// <summary> 初始化D2D
-        /// </summary>
-        protected virtual void InitD2D()
-        {
-            try
-            {
-                this.duiGraphics?.Dispose();
-                this.duiGraphics = null;
-                this.duiGraphics = DuiGraphics.FromControl(this);
-                this.duiGraphics.SmoothingMode = DuiSmoothingMode.AntiAlias;
-                this.duiGraphics.TextRenderingHint = DuiTextRenderingHint.AntiAlias;
-            }
-            catch (Exception ex)
-            {
-                InitD2D();
-            }
-        }
+        #endregion
 
-        protected override void OnPaint(PaintEventArgs e)
+        protected void OnPaint(DuiPaintEventArgs e)
         {
-            base.OnPaint(e);
-            //Default drawing is d2d, if you want use gdi+ style,please override OnPaint and call <code>duiGraphis = e.Graphics</code> like below:
-            //duiGraphics = e.Graphics;
-            duiGraphics.BeginDraw();
-            OnDuiPaint(new DuiPaintEventArgs(duiGraphics, new RectangleF(0, 0, this.Width, this.Height)));
-            duiGraphics.EndDraw();
+            OnDuiPaint(new DuiPaintEventArgs(e.Graphics, e.ClipRectangle));
         }
 
         /// <summary>

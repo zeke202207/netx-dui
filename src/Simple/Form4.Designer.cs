@@ -29,26 +29,18 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form4));
-            this.dxLable1 = new Netx.Dui.DxControls.Controls.DxLable();
+            this.dxLable1 = new Netx.Dui.DxControls.Controls.DxLabel();
             this.dxButton1 = new Netx.Dui.DxControls.DxButton();
             this.SuspendLayout();
             // 
             // dxLable1
             // 
-            this.dxLable1.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
-            this.dxLable1.BackGroundDisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(226)))), ((int)(((byte)(255)))));
-            this.dxLable1.BackGroundHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
-            this.dxLable1.BackGroundPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(126)))), ((int)(((byte)(204)))));
-            this.dxLable1.Center = ((System.Drawing.PointF)(resources.GetObject("dxLable1.Center")));
-            this.dxLable1.FontColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.dxLable1.Image = null;
             this.dxLable1.Location = new System.Drawing.Point(3, 2);
             this.dxLable1.Name = "dxLable1";
-            this.dxLable1.Rotate = 30F;
             this.dxLable1.Size = new System.Drawing.Size(142, 110);
             this.dxLable1.TabIndex = 1;
             this.dxLable1.Text = "dxLable1";
-            this.dxLable1.UseSkin = false;
             // 
             // dxButton1
             // 
@@ -84,6 +76,6 @@
         #endregion
 
         private Netx.Dui.DxControls.DxButton dxButton1;
-        private Netx.Dui.DxControls.Controls.DxLable dxLable1;
+        private Netx.Dui.DxControls.Controls.DxLabel dxLable1;
     }
 }

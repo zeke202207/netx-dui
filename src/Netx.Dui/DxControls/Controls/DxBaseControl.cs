@@ -15,6 +15,8 @@ namespace Netx.Dui.DxControls
 {
     public abstract class DxBaseControl : DxControl
     {
+        #region 私有变量
+
         protected MouseStatus _mouseStatus = MouseStatus.Default;
         protected Color _backGroundColor = ColorTranslator.FromHtml("#409EFF");
         protected Color _backGroundHoverColor = ColorTranslator.FromHtml("#A0CFFF");
@@ -29,8 +31,11 @@ namespace Netx.Dui.DxControls
         protected ContentAlignment _textAlgin = ContentAlignment.MiddleCenter;
         protected ContentAlignment _imageAlgin = ContentAlignment.MiddleCenter;
         protected System.Drawing.Bitmap _image;
+        protected float _radius = 0.0f;
 
-        #region Public Properties
+        #endregion
+
+        #region 设计器属性
 
         [Description("背景颜色"), Category("Dui")]
         public Color BackGroundColor
@@ -199,6 +204,21 @@ namespace Netx.Dui.DxControls
             }
         }
 
+        [Description("边框圆角半径)"), Category("Dui")]
+        [DefaultValue(0.0f)]
+        public float Radius
+        {
+            get
+            {
+                return _radius;
+            }
+            set
+            {
+                _radius = Math.Max(value, 0.0f);
+                this.Invalidate();
+            }
+        }
+
         #endregion
 
         #region 停用属性
@@ -227,15 +247,21 @@ namespace Netx.Dui.DxControls
 
         #endregion
 
-        public DxBaseControl()
-        {
-            //this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-            //UpdateStyles();
-            //BackColor = Color.Transparent;
-        }
+        #region 构造函数
 
         /// <summary>
-        /// 
+        /// dx控件实例对象
+        /// </summary>
+        public DxBaseControl()
+        {
+        }
+
+        #endregion
+
+        #region 控件绘制
+
+        /// <summary>
+        /// 00_开始绘制
         /// </summary>
         /// <param name="context"></param>
         protected override void OnDuiPaint(DuiPaintEventArgs e)
@@ -248,12 +274,20 @@ namespace Netx.Dui.DxControls
             //e.Graphics.RotateTransform(this.Rotate, center);
             //e.Graphics.SkewTransform(this.Skew, center);
             //e.Graphics.ScaleTransform(this.Scale, center);
+
+            //e.Graphics.TranslateTransform(this.Location.X, this.Location.Y); //偏移一下坐标系将控件的坐标定义为坐标系原点
+            //PointF center = new PointF(this.BorderWidth + this.Width / 2, this.BorderWidth + this.Height / 2);
+            //e.Graphics.RotateTransform(35, center);
+            //e.Graphics.SkewTransform(this.Skew, center);
+            //e.Graphics.ScaleTransform(this.Scale, center);
+
+
             e.Graphics.PushLayer(this.Width, this.Height); //背景图层
 
-            #region OnPaintBackground
+            #region 01_OnPaintBackground
 
             DuiGraphicsState backupOnPaintBackgroundGraphicsState = e.Graphics.Save();
-            PaintBackground(new DuiPaintEventArgs(e.Graphics, new RectangleF(0, 0, this.Width, this.Height))); //绘制背景
+            OnPaintBackground(new DuiPaintEventArgs(e.Graphics, new RectangleF(0, 0, this.Width, this.Height))); //绘制背景
             e.Graphics.Restore(backupOnPaintBackgroundGraphicsState);
 
             #endregion
@@ -265,7 +299,7 @@ namespace Netx.Dui.DxControls
                 e.Graphics.PushLayer(this.ClientSize.Width, this.ClientSize.Height); //背景图层
             }
 
-            #region OnPaint
+            #region 02_OnPaint
 
             DuiGraphicsState backupOnPaintGraphicsState = e.Graphics.Save();
             OnControlPaint(new DuiPaintEventArgs(e.Graphics, new RectangleF(0, 0, ClientSize.Width, this.ClientSize.Height)));
@@ -276,7 +310,7 @@ namespace Netx.Dui.DxControls
             e.Graphics.TranslateTransform(-this.BorderWidth, -this.BorderWidth);
             e.Graphics.PopLayer();
 
-            #region OnPaintIcon
+            #region 03_OnPaintIcon
 
             DuiGraphicsState backupOnPaintIconGraphicsState = e.Graphics.Save();
             OnPaintIcon(new DuiPaintEventArgs(e.Graphics, new RectangleF(0, 0, this.Width, this.Height)));
@@ -284,7 +318,7 @@ namespace Netx.Dui.DxControls
 
             #endregion
 
-            #region OnPaintForeground
+            #region 04_OnPaintForeground
 
             DuiGraphicsState backupOnPaintForegroundGraphicsState = e.Graphics.Save();
             OnPaintForeground(new DuiPaintEventArgs(e.Graphics, new RectangleF(0, 0, this.Width, this.Height)));
@@ -296,36 +330,25 @@ namespace Netx.Dui.DxControls
         }
 
         /// <summary>
-        /// 控件独立渲染器
+        /// 01_背景绘制
+        /// </summary>
+        /// <param name="context"></param>
+        protected virtual void OnPaintBackground(DuiPaintEventArgs e)
+        {
+            if (_radius == 0.0f)
+                PaintRectBackground(e);
+            else
+                PaintRoundrectBackground(e);
+        }
+
+        /// <summary>
+        /// 02_控件独立渲染器
         /// </summary>
         /// <param name="context"></param>
         protected abstract void OnControlPaint(DuiPaintEventArgs e);
 
         /// <summary>
-        /// 背景绘制
-        /// </summary>
-        /// <param name="context"></param>
-        protected virtual void PaintBackground(DuiPaintEventArgs e)
-        {
-            var g = e.Graphics;
-            if (null != this.Parent?.BackColor)
-                g.Clear(this.Parent.BackColor);
-            var borderRect = GetBorderRect();
-            using (var pen = new DuiPen(BackgroundColor()))
-            {
-                pen.Width = this.BorderWidth;
-                g.DrawRectangle(pen, borderRect);
-                using (var backgroundBrush = new DuiSolidBrush(BackgroundColor()))
-                {
-                    var fillRect = new Rectangle(2, 2, borderRect.Width -1, borderRect.Height - 1);
-                    fillRect.Inflate(-1,-1);
-                    g.FillRectangle(backgroundBrush, fillRect);
-                }
-            }
-        }
-
-        /// <summary>
-        /// 图标绘制
+        /// 03_图标绘制
         /// </summary>
         /// <param name="e"></param>
         protected virtual void OnPaintIcon(DuiPaintEventArgs e)
@@ -340,7 +363,7 @@ namespace Netx.Dui.DxControls
         }
 
         /// <summary>
-        /// 文本绘制
+        /// 04_文本绘制
         /// </summary>
         /// <param name="context"></param>
         protected virtual void OnPaintForeground(DuiPaintEventArgs e)
@@ -358,6 +381,56 @@ namespace Netx.Dui.DxControls
                 }
             }
         }
+
+        /// <summary>
+        /// 绘制矩形背景背景
+        /// </summary>
+        /// <param name="e"></param>
+        private void PaintRectBackground(DuiPaintEventArgs e)
+        {
+            var g = e.Graphics;
+            if (null != this.Parent?.BackColor)
+                g.Clear(this.Parent.BackColor);
+            var borderRect = GetBorderRect();
+            using (var pen = new DuiPen(BackgroundColor()))
+            {
+                pen.Width = this.BorderWidth;
+                g.DrawRectangle(pen, borderRect);
+                using (var backgroundBrush = new DuiSolidBrush(BackgroundColor()))
+                {
+                    var fillRect = new Rectangle(2, 2, borderRect.Width - 1, borderRect.Height - 1);
+                    fillRect.Inflate(-1, -1);
+                    g.FillRectangle(backgroundBrush, fillRect);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 绘制圆角背景
+        /// </summary>
+        /// <param name="e"></param>
+        private void PaintRoundrectBackground(DuiPaintEventArgs e)
+        {
+            var g = e.Graphics;
+            DuiGraphicsState backupOnPaintBackgroundGraphicsState = g.Save();
+            if (null != this.Parent?.BackColor)
+                g.Clear(this.Parent.BackColor);
+            using (var pen = new DuiPen(BackgroundColor()))
+            {
+                pen.Width = _borderWidth;
+                var borderRect = GetBorderRect();
+                g.DrawRoundedRectangle(pen, borderRect, _radius);
+                using (var backgroundBrush = new DuiSolidBrush(BackgroundColor()))
+                {
+                    g.FillRoundedRectangle(backgroundBrush, borderRect, _radius);
+                }
+            }
+            e.Graphics.Restore(backupOnPaintBackgroundGraphicsState);
+        }
+
+        #endregion
+
+        #region 辅助方法 - 颜色
 
         /// <summary>
         /// 获取背景颜色
@@ -387,6 +460,10 @@ namespace Netx.Dui.DxControls
         {
             return UseSkin ? SkinManager.Scheme.fontSchemeColor.Primary : _fontColor;
         }
+
+        #endregion
+
+        #region 辅助方法 - Bound
 
         /// <summary>
         /// 获取控件边框区域
@@ -576,5 +653,38 @@ namespace Netx.Dui.DxControls
             //        imageX + sizeF.Width, imageY + sizeF.Height));
         }
 
+        #endregion
+
+        #region 鼠标事件
+
+        protected override void OnMouseEnter(EventArgs e)
+        {
+            base.OnMouseEnter(e);
+            _mouseStatus = MouseStatus.Hover;
+            this.Invalidate();
+        }
+
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            base.OnMouseLeave(e);
+            _mouseStatus = MouseStatus.Default;
+            this.Invalidate();
+        }
+
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            base.OnMouseUp(e);
+            _mouseStatus = MouseStatus.Pressed;
+            this.Invalidate();
+        }
+
+        protected override void OnMouseUp(MouseEventArgs e)
+        {
+            base.OnMouseUp(e);
+            _mouseStatus = MouseStatus.Default;
+            this.Invalidate();
+        }
+
+        #endregion
     }
 }

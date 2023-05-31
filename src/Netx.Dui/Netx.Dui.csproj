@@ -88,25 +88,47 @@
     <Compile Include="DuiGraphics\Extentions\TextFormatExtension.cs" />
     <Compile Include="DuiGraphics\IDuiGraphics.cs" />
     <Compile Include="DuiGraphics\ImageDC.cs" />
-    <Compile Include="DxControls\Controls\DxTextBox.cs">
+    <Compile Include="DxAnimation\AnimationFunctions.cs" />
+    <Compile Include="DxAnimation\Animator.cs" />
+    <Compile Include="DxAnimation\Animator2D.cs" />
+    <Compile Include="DxAnimation\Animator3D.cs" />
+    <Compile Include="DxAnimation\AnimatorStatus.cs" />
+    <Compile Include="DxAnimation\float2D.cs" />
+    <Compile Include="DxAnimation\float3D.cs" />
+    <Compile Include="DxAnimation\FloatExtensions.cs" />
+    <Compile Include="DxAnimation\FPSLimiterKnownValues.cs" />
+    <Compile Include="DxAnimation\IAnimator.cs" />
+    <Compile Include="DxAnimation\KnownAnimationFunctions.cs" />
+    <Compile Include="DxAnimation\Path.cs" />
+    <Compile Include="DxAnimation\Path2D.cs" />
+    <Compile Include="DxAnimation\Path2DExtensions.cs" />
+    <Compile Include="DxAnimation\Path3D.cs" />
+    <Compile Include="DxAnimation\Path3DExtensions.cs" />
+    <Compile Include="DxAnimation\PathExtensions.cs" />
+    <Compile Include="DxAnimation\SafeInvoker.cs" />
+    <Compile Include="DxAnimation\SafeInvoker`1.cs" />
+    <Compile Include="DxAnimation\Timer.cs" />
+    <Compile Include="DxControls\Controls\Dx\DxTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DxControls\Controls\DxLable.cs">
+    <Compile Include="DxControls\Controls\Native\DxLabel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DxControls\DxBaseControl.cs">
+    <Compile Include="DxControls\Controls\DxBaseControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DxControls\Controls\DxButton.cs">
+    <Compile Include="DxControls\Controls\Dx\DxButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DxControls\DxRotatableControl.cs">
+    <Compile Include="DxControls\DxPaint\PaintManager.cs" />
+    <Compile Include="DxControls\Controls\DxRotatableControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DxControls\DuiPaintEventArgs.cs" />
-    <Compile Include="DxControls\DxControl.cs">
+    <Compile Include="DxControls\Controls\DuiPaintEventArgs.cs" />
+    <Compile Include="DxControls\Controls\DxControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="IPaintManager.cs" />
     <Compile Include="DxSkins\BaseScheme.cs" />
     <Compile Include="DxSkins\BaseSchemeColor.cs" />
     <Compile Include="DxSkins\SchemeColor\BackgroundSchemeColor.cs" />
@@ -116,10 +138,13 @@
     <Compile Include="DuiEnum.cs" />
     <Compile Include="ISkinManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\ControlTools.cs" />
+    <Compile Include="Tools\DebugTools.cs" />
     <Compile Include="Tools\GdiTools.cs" />
     <Compile Include="Tools\MatrixTools.cs" />
     <Compile Include="Win32\Callback\Functions.cs" />
     <Compile Include="Win32\Const\AC.cs" />
+    <Compile Include="Win32\Const\WM.cs" />
     <Compile Include="Win32\NativeMethods.cs" />
     <Compile Include="Win32\Struct\BITMAPINFO.cs" />
     <Compile Include="Win32\Struct\BITMAPINFOHEADER.cs" />
@@ -149,11 +174,14 @@
     <Compile Include="Win32\WindowsMessage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DxAnimation\" />
     <Folder Include="DxForms\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DxAnimation\Icon.png" />
+    <Content Include="DxAnimation\readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

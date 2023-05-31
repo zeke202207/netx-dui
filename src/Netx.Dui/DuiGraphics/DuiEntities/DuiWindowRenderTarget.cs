@@ -1,6 +1,7 @@
 ﻿using SharpDX;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -53,7 +54,7 @@ namespace Netx.Dui
             var handleControl = System.Windows.Forms.Control.FromHandle(handle);
             handleControl.SizeChanged += (s, e) =>
             {
-                windowRenderTarget.Resize(new Size2(handleControl.ClientSize.Width, handleControl.ClientSize.Height));
+                windowRenderTarget?.Resize(new Size2(handleControl.ClientSize.Width, handleControl.ClientSize.Height));
             };
         }
 

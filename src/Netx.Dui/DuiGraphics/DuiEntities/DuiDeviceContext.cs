@@ -1,8 +1,12 @@
-﻿using System;
+﻿using SharpDX.Direct2D1;
+using SharpDX;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using SharpDX.DXGI;
+using Netx.Dui.Tools;
 
 namespace Netx.Dui
 {
@@ -34,11 +38,31 @@ namespace Netx.Dui
                 SampleDescription = new SharpDX.DXGI.SampleDescription(1, 0),
                 SwapEffect = SharpDX.DXGI.SwapEffect.Discard
             };
-            this.swapChain = new SharpDX.DXGI.SwapChain(dxgiDevice.GetParent<SharpDX.DXGI.Adapter>().GetParent<SharpDX.DXGI.Factory>(), d3d11Device, swapChainDescription);
+            this.swapChain = new SharpDX.DXGI.SwapChain(
+                dxgiDevice.GetParent<SharpDX.DXGI.Adapter>().GetParent<SharpDX.DXGI.Factory>(), 
+                d3d11Device, 
+                swapChainDescription);
             this.swapChainBuffer = SharpDX.DXGI.Surface.FromSwapChain(this.swapChain, 0);
             this.targetBitmap = new SharpDX.Direct2D1.Bitmap1(this.deviceContext, this.swapChainBuffer);
             this.deviceContext.Target = targetBitmap;
+            // 在控件大小被改变的时候必须改变渲染目标的大小，
+            // 否则会导致绘制结果被拉伸，引起失真。
+            var handleControl = System.Windows.Forms.Control.FromHandle(handle);
+            handleControl.SizeChanged += (s, e) =>
+            {
+                // 在控件大小被改变的时候必须改变渲染目标的大小，
+                // 否则会导致绘制结果被拉伸，引起失真。
+                // 必须先释放与 SwapChain 相关的任何资源。
+                this.deviceContext.Target = null;
+                this.swapChainBuffer.Dispose();
+                this.targetBitmap.Dispose();
+                this.swapChain.ResizeBuffers(1, 0, 0, SharpDX.DXGI.Format.B8G8R8A8_UNorm, SwapChainFlags.None);
+                this.swapChainBuffer = Surface.FromSwapChain(this.swapChain, 0);
+                this.targetBitmap = new Bitmap1(this.deviceContext, swapChainBuffer);
+                this.deviceContext.Target = targetBitmap;
+            };
         }
+
         public override void Resize(Size size)
         {
             this.deviceContext.Target = null;
@@ -49,11 +73,13 @@ namespace Netx.Dui
             this.targetBitmap = new SharpDX.Direct2D1.Bitmap1(this.deviceContext, this.swapChainBuffer);
             this.deviceContext.Target = targetBitmap;
         }
+
         public override void EndDraw()
         {
             base.EndDraw();
             this.swapChain.Present(0, SharpDX.DXGI.PresentFlags.None);
         }
+
         public static implicit operator SharpDX.Direct2D1.DeviceContext(DuiDeviceContext dUIDeviceContext)
         {
             return dUIDeviceContext.deviceContext;
@@ -65,7 +91,7 @@ namespace Netx.Dui
             this.dxgiDevice?.Dispose();
             this.dxgiDevice = null;
             this.swapChain?.Dispose();
-          this.  swapChain = null;
+            this.swapChain = null;
             this.swapChainBuffer?.Dispose();
             d2dDevice.Dispose();
             deviceContext.Dispose();

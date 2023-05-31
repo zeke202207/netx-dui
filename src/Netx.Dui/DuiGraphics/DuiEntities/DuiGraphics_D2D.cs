@@ -109,8 +109,8 @@ namespace Netx.Dui
             this.target = target;
         }
 
-        //public DuiGraphics_D2D(IntPtr handle) : this(new DuiDeviceContext(handle))
-        public DuiGraphics_D2D(IntPtr handle) : this(new DuiWindowRenderTarget(handle))
+        public DuiGraphics_D2D(IntPtr handle) : this(new DuiDeviceContext(handle))
+        //public DuiGraphics_D2D(IntPtr handle) : this(new DuiWindowRenderTarget(handle))
         {
         }
 
