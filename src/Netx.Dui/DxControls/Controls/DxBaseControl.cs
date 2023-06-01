@@ -398,7 +398,7 @@ namespace Netx.Dui.DxControls
                 g.DrawRectangle(pen, borderRect);
                 using (var backgroundBrush = new DuiSolidBrush(BackgroundColor()))
                 {
-                    var fillRect = new Rectangle(2, 2, borderRect.Width - 1, borderRect.Height - 1);
+                    var fillRect = new Rectangle(2, 2, borderRect.Width - 2, borderRect.Height - 2);
                     fillRect.Inflate(-1, -1);
                     g.FillRectangle(backgroundBrush, fillRect);
                 }
