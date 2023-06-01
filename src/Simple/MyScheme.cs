@@ -18,9 +18,9 @@ namespace Simple
         /// 配置
         /// </summary>
         /// <returns></returns>
-        protected override BackgroundSchemeColor InitBackgroundSchemeColor()
+        protected override ColorScheme InitColorScheme()
         {
-            BackgroundSchemeColor backgroundScheme = new BackgroundSchemeColor(
+            ColorScheme backgroundScheme = new ColorScheme(
                 Color.DarkGray,
                 Color.DarkGreen,
                 Color.DarkRed,
@@ -34,9 +34,9 @@ namespace Simple
         /// 配置字体
         /// </summary>
         /// <returns></returns>
-        protected override FontSchemeColor InitFontSchemeColor()
+        protected override FontScheme InitFontScheme()
         {
-            return new FontSchemeColor(ColorTranslator.FromHtml("#FFFFFF"), new Font("宋体", 9.0f));
+            return new FontScheme(ColorTranslator.FromHtml("#FFFFFF"), new Font("宋体", 9.0f));
         }
     }
 }

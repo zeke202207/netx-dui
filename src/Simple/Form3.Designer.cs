@@ -97,9 +97,10 @@
             this.dxLabel2.BackColor = System.Drawing.SystemColors.Control;
             this.dxLabel2.Location = new System.Drawing.Point(26, 273);
             this.dxLabel2.Name = "dxLabel2";
-            this.dxLabel2.Size = new System.Drawing.Size(49, 56);
+            this.dxLabel2.Size = new System.Drawing.Size(77, 52);
             this.dxLabel2.TabIndex = 5;
             this.dxLabel2.Text = "dxLabel2";
+            this.dxLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Form3
             // 

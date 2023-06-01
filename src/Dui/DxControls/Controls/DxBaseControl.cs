@@ -127,13 +127,13 @@ namespace Netx.Dui.DxControls
             get
             {
                 if (null == _font)
-                    _font = SkinManager.Scheme.fontSchemeColor.Font;
+                    _font = SkinManager.Scheme.FontScheme.Font;
                 return _font;
             }
             set
             {
                 if (null == value)
-                    _font = SkinManager.Scheme.fontSchemeColor.Font;
+                    _font = SkinManager.Scheme.FontScheme.Font;
                 _font = value;
                 _weightStyle = _font.Bold ? WeightStyle.Bold : WeightStyle.Regular;
                 _italicStyle = _font.Italic ? ItalicStyle.Italic : ItalicStyle.Normal;
@@ -230,13 +230,13 @@ namespace Netx.Dui.DxControls
             get
             {
                 if (null == _font)
-                    _font = SkinManager.Scheme.fontSchemeColor.Font;
+                    _font = SkinManager.Scheme.FontScheme.Font;
                 return _font;
             }
             set
             {
                 if (null == value)
-                    _font = SkinManager.Scheme.fontSchemeColor.Font;
+                    _font = SkinManager.Scheme.FontScheme.Font;
                 _font = value;
                 _weightStyle = _font.Bold ? WeightStyle.Bold : WeightStyle.Regular;
                 _italicStyle = _font.Italic ? ItalicStyle.Italic : ItalicStyle.Normal;
@@ -373,10 +373,10 @@ namespace Netx.Dui.DxControls
                 rectImage = GetIconRect(e.ClipRectangle, _imageAlgin, new Size(_image.Width, _image.Height));
             if (!string.IsNullOrWhiteSpace(_text))
             {
-                var rectText = GetTextRect(e.ClipRectangle, rectImage, _imageAlgin, _textAlgin);
+                var rectText = GetTextRect(e.ClipRectangle, rectImage, _textAlgin);
                 using (var txtBrush = new DuiSolidBrush(TextColor()))
                 {
-                    g.DrawString(_text, new DuiFont(this.Font,_textAlgin), txtBrush, rectText);
+                    g.DrawString(_text, new DuiFont(TextFont(), _textAlgin), txtBrush, rectText);
                 }
             }
         }
@@ -438,16 +438,16 @@ namespace Netx.Dui.DxControls
         protected virtual Color BackgroundColor()
         {
             if (!this.Enabled)
-                return UseSkin ? SkinManager.Scheme.bgSchemeColor.DisabledColor : _backGroundDisabledColor;
+                return UseSkin ? SkinManager.Scheme.ColorScheme.DisabledColor : _backGroundDisabledColor;
             switch (_mouseStatus)
             {
                 default:
                 case MouseStatus.Default:
-                    return UseSkin ? SkinManager.Scheme.bgSchemeColor.Primary : _backGroundColor;
+                    return UseSkin ? SkinManager.Scheme.ColorScheme.Primary : _backGroundColor;
                 case MouseStatus.Hover:
-                    return UseSkin ? SkinManager.Scheme.bgSchemeColor.HoverColor : _backGroundHoverColor;
+                    return UseSkin ? SkinManager.Scheme.ColorScheme.HoverColor : _backGroundHoverColor;
                 case MouseStatus.Pressed:
-                    return UseSkin ? SkinManager.Scheme.bgSchemeColor.PressedColor : _backGroundPressColor;
+                    return UseSkin ? SkinManager.Scheme.ColorScheme.PressedColor : _backGroundPressColor;
             }
         }
 
@@ -457,7 +457,16 @@ namespace Netx.Dui.DxControls
         /// <returns></returns>
         protected virtual Color TextColor()
         {
-            return UseSkin ? SkinManager.Scheme.fontSchemeColor.Primary : _fontColor;
+            return UseSkin ? SkinManager.Scheme.FontScheme.Primary : _fontColor;
+        }
+
+        /// <summary>
+        /// 获取字体
+        /// </summary>
+        /// <returns></returns>
+        protected virtual Font TextFont()
+        {
+            return UseSkin ? SkinManager.Scheme.FontScheme.Font : _font;
         }
 
         #endregion
@@ -542,12 +551,12 @@ namespace Netx.Dui.DxControls
         /// 获取文本
         /// </summary>
         /// <returns></returns>
-        protected virtual RectangleF GetTextRect(RectangleF clipRectangle, RectangleF imageRect, ContentAlignment imageAlign, ContentAlignment textAlign)
+        protected virtual RectangleF GetTextRect(RectangleF clipRectangle, RectangleF imageRect, ContentAlignment textAlign)
         {
             RectangleF txtRect = RectangleF.Empty;
             float offsizeX = 5;
-            float offsizeY = 5;
-            switch (imageAlign)
+            float offsizeY = 0;
+            switch (textAlign)
             {
                 case ContentAlignment.TopLeft:
                 case ContentAlignment.MiddleLeft:

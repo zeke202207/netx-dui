@@ -17,9 +17,9 @@ namespace Netx.Dui
         /// 配置
         /// </summary>
         /// <returns></returns>
-        protected override BackgroundSchemeColor InitBackgroundSchemeColor()
+        protected override ColorScheme InitColorScheme()
         {
-            BackgroundSchemeColor backgroundScheme = new BackgroundSchemeColor(
+            ColorScheme backgroundScheme = new ColorScheme(
                 ColorTranslator.FromHtml("#409EFF"),
                 ColorTranslator.FromHtml("#A0CFFF"),
                 ColorTranslator.FromHtml("#337ECC"),
@@ -33,9 +33,9 @@ namespace Netx.Dui
         /// 配置字体
         /// </summary>
         /// <returns></returns>
-        protected override FontSchemeColor InitFontSchemeColor()
+        protected override FontScheme InitFontScheme()
         {
-            return new FontSchemeColor(ColorTranslator.FromHtml("#FFFFFF"), new Font("宋体", 13.0f));
+            return new FontScheme(ColorTranslator.FromHtml("#FFFFFF"), new Font("宋体", 13.0f));
         }
     }
 }

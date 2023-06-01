@@ -8,11 +8,11 @@ namespace Netx.Dui
 {
     public abstract class BaseScheme
     {
-        private BackgroundSchemeColor _bgSchemeColor;
-        private FontSchemeColor _fontSchemeColor;
+        private ColorScheme _colorScheme;
+        private FontScheme _fontScheme;
 
-        public BackgroundSchemeColor bgSchemeColor => _bgSchemeColor;
-        public FontSchemeColor fontSchemeColor => _fontSchemeColor;
+        public ColorScheme ColorScheme => _colorScheme;
+        public FontScheme FontScheme => _fontScheme;
 
         public BaseScheme()
         {
@@ -21,11 +21,12 @@ namespace Netx.Dui
 
         private void InitScheme()
         {
-            _bgSchemeColor = InitBackgroundSchemeColor();
-            _fontSchemeColor = InitFontSchemeColor();
+            _colorScheme = InitColorScheme();
+            _fontScheme = InitFontScheme();
         }
 
-        protected abstract FontSchemeColor InitFontSchemeColor();
-        protected abstract BackgroundSchemeColor InitBackgroundSchemeColor();
+        protected abstract FontScheme InitFontScheme();
+
+        protected abstract ColorScheme InitColorScheme();
     }
 }

@@ -18,6 +18,7 @@ namespace Netx.Dui.DxControls
         /// <summary>
         /// 皮肤管理
         /// </summary>
+        [Browsable(false)]
         public DxSkinManager SkinManager => DxSkinManager.Instance;
 
         /// <summary>

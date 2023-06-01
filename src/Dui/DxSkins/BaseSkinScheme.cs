@@ -6,13 +6,13 @@ using System.Text;
 
 namespace Netx.Dui
 {
-    public abstract class BaseSchemeColor
+    public abstract class BaseSkinScheme
     {
         private readonly Color _primary;
 
         public Color Primary { get { return _primary; } }
 
-        public BaseSchemeColor(Color primary)
+        public BaseSkinScheme(Color primary)
         {
             this._primary = primary;
         }

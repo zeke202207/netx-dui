@@ -6,13 +6,13 @@ using System.Text;
 
 namespace Netx.Dui
 {
-    public class FontSchemeColor : BaseSchemeColor
+    public class FontScheme : BaseSkinScheme
     {
         private readonly Font _font;
 
         public Font Font { get { return _font; } }
 
-        public FontSchemeColor(Color primary, Font font) 
+        public FontScheme(Color primary, Font font) 
             : base(primary)
         {
             _font = font;
