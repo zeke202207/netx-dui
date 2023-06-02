@@ -28,9 +28,48 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.dxLabel2 = new Netx.Dui.DxControls.Controls.DxLabel();
+            this.dxButton2 = new Netx.Dui.DxControls.DxButton();
             this.dxLable1 = new Netx.Dui.DxControls.Controls.DxLabel();
             this.dxButton1 = new Netx.Dui.DxControls.DxButton();
             this.SuspendLayout();
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel1.Location = new System.Drawing.Point(213, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(587, 596);
+            this.panel1.TabIndex = 3;
+            this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
+            // 
+            // dxLabel2
+            // 
+            this.dxLabel2.Location = new System.Drawing.Point(12, 140);
+            this.dxLabel2.Name = "dxLabel2";
+            this.dxLabel2.Size = new System.Drawing.Size(195, 88);
+            this.dxLabel2.TabIndex = 4;
+            this.dxLabel2.Text = "dxLabel1";
+            // 
+            // dxButton2
+            // 
+            this.dxButton2.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
+            this.dxButton2.BackGroundDisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(226)))), ((int)(((byte)(255)))));
+            this.dxButton2.BackGroundHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
+            this.dxButton2.BackGroundPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(126)))), ((int)(((byte)(204)))));
+            this.dxButton2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.dxButton2.DFont = new System.Drawing.Font("宋体", 13F);
+            this.dxButton2.FontColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.dxButton2.Image = null;
+            this.dxButton2.Location = new System.Drawing.Point(13, 84);
+            this.dxButton2.MinimumSize = new System.Drawing.Size(1, 1);
+            this.dxButton2.Name = "dxButton2";
+            this.dxButton2.Size = new System.Drawing.Size(85, 35);
+            this.dxButton2.TabIndex = 2;
+            this.dxButton2.Text = "测试";
+            this.dxButton2.Click += new System.EventHandler(this.dxButton2_Click);
             // 
             // dxLable1
             // 
@@ -67,6 +106,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 596);
+            this.Controls.Add(this.dxLabel2);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.dxButton2);
             this.Controls.Add(this.dxLable1);
             this.Controls.Add(this.dxButton1);
             this.ForeColor = System.Drawing.SystemColors.ActiveCaption;
@@ -80,5 +122,8 @@
 
         private Netx.Dui.DxControls.DxButton dxButton1;
         private Netx.Dui.DxControls.Controls.DxLabel dxLable1;
+        private Netx.Dui.DxControls.DxButton dxButton2;
+        private System.Windows.Forms.Panel panel1;
+        private Netx.Dui.DxControls.Controls.DxLabel dxLabel2;
     }
 }

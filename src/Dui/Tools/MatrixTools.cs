@@ -23,6 +23,7 @@ namespace Netx.Dui
             double m32 = matrix.M32;
             return new PointF((float)(p.X * m11 + p.Y * m21 + m31), (float)(p.X * m12 + p.Y * m22 + m32));
         }
+
         /// <summary> 一个点在经过一个矩阵变换之前的坐标
         /// </summary>
         /// <param name="p">矩阵变换后的点</param>
@@ -38,6 +39,7 @@ namespace Netx.Dui
             double m32 = matrix.M32;
             return new PointF((float)((p.Y * m21 - m32 * m21 - p.X * m22 + m31 * m22) / (m12 * m21 - m11 * m22)), (float)((p.Y * m11 - m32 * m11 - p.X * m12 + m31 * m12) / (m22 * m11 - m21 * m12)));
         }
+
         /// <summary> 三对点仿射变换
         /// </summary>
         /// <param name="srcTriangle"> 原始三个点</param>
