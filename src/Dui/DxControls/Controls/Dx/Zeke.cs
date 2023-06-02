@@ -7,7 +7,8 @@ using System.Text;
 
 namespace Netx.Dui.DxControls.Controls.Dx
 {
-    public class Zeke //: DxRotatableControl
+    [ToolboxItem(false)]
+    public class Zeke : DxRotatableControl
     {
         public Zeke()
         {
@@ -19,10 +20,10 @@ namespace Netx.Dui.DxControls.Controls.Dx
         //   // base.OnDuiPaint(e);
         //}
 
-        //protected override void OnControlPaint(DuiPaintEventArgs e)
-        //{
-            
-        //}
+        protected override void OnControlPaint(DuiPaintEventArgs e)
+        {
+
+        }
 
         //protected override void OnPaintBackground(DuiPaintEventArgs e)
         //{
@@ -41,7 +42,7 @@ namespace Netx.Dui.DxControls.Controls.Dx
 
         //protected override void OnPaintAnimationLayer(DuiPaintEventArgs e)
         //{
-            
+
         //}
     }
 }

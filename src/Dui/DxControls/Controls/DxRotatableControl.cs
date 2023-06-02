@@ -13,7 +13,7 @@ namespace Netx.Dui.DxControls
     /// <summary>
     /// 可旋转控件基类
     /// </summary>
-    public abstract class DxRotatableControl : DxBaseControl
+    public abstract class DxRotatableControl : DxBaseInteraction
     {
         private Rectangle _minBoundRect = Rectangle.Empty;
 

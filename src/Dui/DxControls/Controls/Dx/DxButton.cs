@@ -11,7 +11,7 @@ namespace Netx.Dui.DxControls
     [DefaultEvent("Click")]
     [DefaultProperty("Text")]
     [ToolboxItem(true)]
-    public class DxButton : DxBaseControl, IButtonControl
+    public class DxButton : DxBaseInteraction, IButtonControl
     {
         /// <summary>
         /// 指定标识符以指示对话框的返回值
