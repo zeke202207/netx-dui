@@ -63,4 +63,21 @@ namespace Netx.Dui
         Out,
         Both
     }
+
+    public enum ColorType
+    {
+        Primary,
+        Hover,
+        Pressed,
+        Selected,
+        Disabled,
+        Animation,
+        Border
+    }
+
+    public enum FontColorType
+    {
+        Primary,
+        Transparency
+    }
 }

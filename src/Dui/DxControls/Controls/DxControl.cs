@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.ComponentModel;
-using Netx.Dui.Common;
 using System.Drawing;
 
 namespace Netx.Dui.DxControls

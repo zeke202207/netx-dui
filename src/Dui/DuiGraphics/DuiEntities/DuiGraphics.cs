@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Netx.Dui.Common
+namespace Netx.Dui
 {
     public class DuiGraphics : IDisposable
     {
@@ -608,12 +608,12 @@ namespace Netx.Dui.Common
         //            ptRT = new PointF(ptRT.X + offset, ptRT.Y);
         //            ptLB = new PointF(ptLB.X, ptLB.Y + offset);
         //            ptRB = new PointF(ptRB.X + offset, ptRB.Y + offset);
-        //            DUIMatrix4x4 matrix4x4_1 = new DUIMatrix4x4(
+        //            DuiMatrix4x4 matrix4x4_1 = new DuiMatrix4x4(
         //                1F / w, 0, 0, 0,
         //                0, 1F / h, 0, 0,
         //                0, 0, 1, 0,
         //                0, 0, 0, 1);
-        //            DUIMatrix4x4 matrix4x4_2 = new DUIMatrix4x4(
+        //            DuiMatrix4x4 matrix4x4_2 = new DuiMatrix4x4(
         //                ptRT.X - ptLT.X, ptRT.Y - ptLT.Y, 0, 0,
         //                ptLB.X - ptLT.X, ptLB.Y - ptLT.Y, 0, 0,
         //                0, 0, 1, 0,
@@ -623,12 +623,12 @@ namespace Netx.Dui.Common
         //                matrix4x4_2.M21 * matrix4x4_2.M42 - matrix4x4_2.M22 * matrix4x4_2.M41) / den;
         //            float b = (matrix4x4_2.M11 * ptRB.Y - matrix4x4_2.M12 * ptRB.X +
         //                matrix4x4_2.M12 * matrix4x4_2.M41 - matrix4x4_2.M11 * matrix4x4_2.M42) / den;
-        //            DUIMatrix4x4 matrix4x4_3 = new DUIMatrix4x4(
+        //            DuiMatrix4x4 matrix4x4_3 = new DuiMatrix4x4(
         //                a / (a + b - 1), 0, 0, a / (a + b - 1) - 1,
         //                0, b / (a + b - 1), 0, b / (a + b - 1) - 1,
         //                0, 0, 1, 0,
         //                0, 0, 0, 1);
-        //            DUIMatrix4x4 matrix4x4 = matrix4x4_1 * matrix4x4_3 * matrix4x4_2;
+        //            DuiMatrix4x4 matrix4x4 = matrix4x4_1 * matrix4x4_3 * matrix4x4_2;
         //            //((SharpDX.Direct2D1.DeviceContext)this.target.RenderTarget).DrawBitmap(image, DxConvert.ToRectF(new RectangleF(0, 0, w, h)), 1, SharpDX.Direct2D1.InterpolationMode.NearestNeighbor, DxConvert.ToRectF(new RectangleF(x * w, y * h, w, h)), matrix4x4);
         //        }
         //    }

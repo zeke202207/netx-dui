@@ -25,7 +25,9 @@ namespace Simple
                 Color.DarkGreen,
                 Color.DarkRed,
                 Color.DarkOrange,
-                Color.DarkSalmon
+                Color.DarkSalmon,
+                Color.Green,
+                Color.DarkRed
                 );
             return backgroundScheme;
         }
@@ -36,7 +38,7 @@ namespace Simple
         /// <returns></returns>
         protected override FontScheme InitFontScheme()
         {
-            return new FontScheme(ColorTranslator.FromHtml("#FFFFFF"), new Font("宋体", 9.0f));
+            return new FontScheme(ColorTranslator.FromHtml("#FFFFFF"), ColorTranslator.FromHtml("#3B3939") , new Font("宋体", 9.0f));
         }
     }
 }

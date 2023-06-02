@@ -36,13 +36,12 @@
             // 
             this.dxLable1.BackColor = System.Drawing.Color.Transparent;
             this.dxLable1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.dxLable1.Location = new System.Drawing.Point(144, 156);
+            this.dxLable1.Location = new System.Drawing.Point(125, 19);
             this.dxLable1.Name = "dxLable1";
             this.dxLable1.Size = new System.Drawing.Size(118, 25);
             this.dxLable1.TabIndex = 1;
             this.dxLable1.Text = "测试";
             this.dxLable1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.dxLable1.UseSkin = false;
             // 
             // dxButton1
             // 
@@ -54,13 +53,13 @@
             this.dxButton1.DFont = new System.Drawing.Font("宋体", 13F);
             this.dxButton1.FontColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.dxButton1.Image = null;
-            this.dxButton1.Location = new System.Drawing.Point(146, 67);
+            this.dxButton1.Location = new System.Drawing.Point(12, 12);
             this.dxButton1.MinimumSize = new System.Drawing.Size(1, 1);
             this.dxButton1.Name = "dxButton1";
             this.dxButton1.Radius = 5F;
             this.dxButton1.Size = new System.Drawing.Size(97, 37);
             this.dxButton1.TabIndex = 0;
-            this.dxButton1.Text = "测试按钮";
+            this.dxButton1.Text = "样式切换";
             this.dxButton1.Click += new System.EventHandler(this.dxButton1_Click);
             // 
             // Form4

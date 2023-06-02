@@ -8,9 +8,7 @@ namespace Netx.Dui
 {
     public abstract class BaseSkinScheme
     {
-        private readonly Color _primary;
-
-        public Color Primary { get { return _primary; } }
+        protected readonly Color _primary;
 
         public BaseSkinScheme(Color primary)
         {

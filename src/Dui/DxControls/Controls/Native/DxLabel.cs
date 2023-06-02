@@ -1,5 +1,4 @@
-﻿using Netx.Dui.Common;
-using Netx.Dui.Win32;
+﻿using Netx.Dui.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +19,7 @@ namespace Netx.Dui.DxControls.Controls
         public DxSkinManager SkinManager => DxSkinManager.Instance;
         internal IPaintManager _paintManager = new PaintManager();
         private bool _useSkin = true;
+        private bool _transparency =true;
 
         #endregion
 
@@ -39,6 +39,18 @@ namespace Netx.Dui.DxControls.Controls
             set
             {
                 _useSkin = value;
+                this.Invalidate();
+            }
+        }
+
+        [DefaultValue(true)]
+        [Description("是否使用透明背景（假透明，与父控件背景颜色相同）"), Category("Dui")]
+        public bool Transparency
+        {
+            get { return _transparency; }
+            set 
+            { 
+                _transparency = value;
                 this.Invalidate();
             }
         }
@@ -123,12 +135,16 @@ namespace Netx.Dui.DxControls.Controls
         /// <returns></returns>
         protected virtual Color BackgroundColor()
         {
-            return UseSkin ? SkinManager.Scheme.ColorScheme.Primary : this.BackColor;
+            if (_transparency)
+                return this.Parent == null ? this.BackColor : this.Parent.BackColor;
+            return UseSkin ? SkinManager.Scheme.ColorScheme.GetColor(ColorType.Primary) : this.BackColor;
         }
 
         protected virtual Color TextColor()
         {
-            return UseSkin ? SkinManager.Scheme.FontScheme.Primary : this.ForeColor;
+            if (!_useSkin)
+                return this.ForeColor;
+            return _transparency ? SkinManager.Scheme.FontScheme.GetColor(FontColorType.Transparency) : SkinManager.Scheme.FontScheme.GetColor(FontColorType.Primary);
         }
 
         protected virtual Font TextFont()

@@ -24,7 +24,9 @@ namespace Netx.Dui
                 ColorTranslator.FromHtml("#A0CFFF"),
                 ColorTranslator.FromHtml("#337ECC"),
                 ColorTranslator.FromHtml("#337ECC"),
-                ColorTranslator.FromHtml("#C6E2FF")
+                ColorTranslator.FromHtml("#C6E2FF"),
+                ColorTranslator.FromHtml("#E91095"),
+                ColorTranslator.FromHtml("#555252")
                 );
             return backgroundScheme;
         }
@@ -35,7 +37,7 @@ namespace Netx.Dui
         /// <returns></returns>
         protected override FontScheme InitFontScheme()
         {
-            return new FontScheme(ColorTranslator.FromHtml("#FFFFFF"), new Font("宋体", 13.0f));
+            return new FontScheme(ColorTranslator.FromHtml("#FFFFFF"), Color.Black, new Font("宋体", 13.0f));
         }
     }
 }

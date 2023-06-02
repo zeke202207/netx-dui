@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
-using Netx.Dui.Common;
 using System.IO;
 using Netx.Dui.Win32.Struct;
 
@@ -31,6 +30,13 @@ namespace Netx.Dui.DxControls
         protected ContentAlignment _imageAlgin = ContentAlignment.MiddleCenter;
         protected System.Drawing.Bitmap _image;
         protected float _radius = 0.0f;
+        private bool _transparency = false;
+
+        #region 动画特效
+
+        private readonly AnimationManager _animationManager = null;
+
+        #endregion
 
         #endregion
 
@@ -218,6 +224,18 @@ namespace Netx.Dui.DxControls
             }
         }
 
+        [DefaultValue(false)]
+        [Description("是否使用透明背景（假透明，与父控件背景颜色相同）"), Category("Dui")]
+        public bool Transparency
+        {
+            get { return _transparency; }
+            set
+            {
+                _transparency = value;
+                this.Invalidate();
+            }
+        }
+
         #endregion
 
         #region 停用属性
@@ -253,6 +271,12 @@ namespace Netx.Dui.DxControls
         /// </summary>
         public DxBaseControl()
         {
+            _animationManager = new AnimationManager(false)
+            {
+                Increment = 0.03,
+                AnimationType = AnimationType.EaseOut
+            };
+            _animationManager.OnAnimationProgress += sender => Invalidate();
         }
 
         #endregion
@@ -325,6 +349,14 @@ namespace Netx.Dui.DxControls
 
             #endregion
 
+            #region 05_OnPaintAnimationLayer
+
+            DuiGraphicsState animationLayerOnPaintForegroundGraphicsState = e.Graphics.Save();
+            OnPaintAnimationLayer(new DuiPaintEventArgs(e.Graphics, new RectangleF(0, 0, this.Width, this.Height)));
+            e.Graphics.Restore(animationLayerOnPaintForegroundGraphicsState);
+
+            #endregion
+
             e.Graphics.Restore(backupGraphicsState);
         }
 
@@ -382,6 +414,31 @@ namespace Netx.Dui.DxControls
         }
 
         /// <summary>
+        /// 05_动画蒙版
+        /// </summary>
+        /// <param name="e"></param>
+        protected virtual void OnPaintAnimationLayer(DuiPaintEventArgs e)
+        {
+            var g = e.Graphics;
+            if (_animationManager.IsAnimating())
+            {
+                for (var i = 0; i < _animationManager.GetAnimationCount(); i++)
+                {
+                    var animationValue = _animationManager.GetProgress(i);
+                    var animationSource = _animationManager.GetSource(i);
+                    using (var rippleBrush = new DuiSolidBrush(
+                        Color.FromArgb((int)(100 - (animationValue * 100)),
+                        SkinManager.Scheme.ColorScheme.GetColor(ColorType.Animation))))
+                    {
+                        var rippleSize = (int)(animationValue * Width * 2);
+                        g.FillEllipse(rippleBrush, 
+                            new Rectangle(animationSource.X - rippleSize / 2, animationSource.Y - rippleSize / 2, rippleSize, rippleSize));
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// 绘制矩形背景背景
         /// </summary>
         /// <param name="e"></param>
@@ -391,7 +448,7 @@ namespace Netx.Dui.DxControls
             if (null != this.Parent?.BackColor)
                 g.Clear(this.Parent.BackColor);
             var borderRect = GetBorderRect();
-            using (var pen = new DuiPen(BackgroundColor()))
+            using (var pen = new DuiPen(BorderColor()))
             {
                 pen.Width = this.BorderWidth;
                 g.DrawRectangle(pen, borderRect);
@@ -414,7 +471,7 @@ namespace Netx.Dui.DxControls
             DuiGraphicsState backupOnPaintBackgroundGraphicsState = g.Save();
             if (null != this.Parent?.BackColor)
                 g.Clear(this.Parent.BackColor);
-            using (var pen = new DuiPen(BackgroundColor()))
+            using (var pen = new DuiPen(BorderColor()))
             {
                 pen.Width = _borderWidth;
                 var borderRect = GetBorderRect();
@@ -432,22 +489,33 @@ namespace Netx.Dui.DxControls
         #region 辅助方法 - 颜色
 
         /// <summary>
+        /// 获取边框颜色
+        /// </summary>
+        /// <returns></returns>
+        protected virtual Color BorderColor()
+        {
+            return UseSkin ? SkinManager.Scheme.ColorScheme.GetColor(ColorType.Border) : Color.DarkGray;
+        }
+
+        /// <summary>
         /// 获取背景颜色
         /// </summary>
         /// <returns></returns>
         protected virtual Color BackgroundColor()
         {
+            if (_transparency)
+                return this.Parent == null ? this.BackColor : this.Parent.BackColor;
             if (!this.Enabled)
-                return UseSkin ? SkinManager.Scheme.ColorScheme.DisabledColor : _backGroundDisabledColor;
+                return UseSkin ? SkinManager.Scheme.ColorScheme.GetColor(ColorType.Disabled) : _backGroundDisabledColor;
             switch (_mouseStatus)
             {
                 default:
                 case MouseStatus.Default:
-                    return UseSkin ? SkinManager.Scheme.ColorScheme.Primary : _backGroundColor;
+                    return UseSkin ? SkinManager.Scheme.ColorScheme.GetColor(ColorType.Primary) : _backGroundColor;
                 case MouseStatus.Hover:
-                    return UseSkin ? SkinManager.Scheme.ColorScheme.HoverColor : _backGroundHoverColor;
+                    return UseSkin ? SkinManager.Scheme.ColorScheme.GetColor(ColorType.Hover) : _backGroundHoverColor;
                 case MouseStatus.Pressed:
-                    return UseSkin ? SkinManager.Scheme.ColorScheme.PressedColor : _backGroundPressColor;
+                    return UseSkin ? SkinManager.Scheme.ColorScheme.GetColor(ColorType.Pressed) : _backGroundPressColor;
             }
         }
 
@@ -457,7 +525,11 @@ namespace Netx.Dui.DxControls
         /// <returns></returns>
         protected virtual Color TextColor()
         {
-            return UseSkin ? SkinManager.Scheme.FontScheme.Primary : _fontColor;
+            if (!UseSkin)
+                return _fontColor;
+            return _transparency ? 
+                SkinManager.Scheme.FontScheme.GetColor(FontColorType.Transparency) : 
+                SkinManager.Scheme.FontScheme.GetColor(FontColorType.Primary);
         }
 
         /// <summary>
@@ -682,7 +754,8 @@ namespace Netx.Dui.DxControls
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseUp(e);
-            _mouseStatus = MouseStatus.Pressed;
+            _mouseStatus = MouseStatus.Pressed; 
+            _animationManager.StartNewAnimation(AnimationDirection.In, e.Location);
             this.Invalidate();
         }
 

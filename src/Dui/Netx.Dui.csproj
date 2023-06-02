@@ -7,7 +7,6 @@
     <ProjectGuid>{CE3599E8-C8C2-0789-29F3-FA63317B67E1}</ProjectGuid>
     <UseWindowsForms>true</UseWindowsForms>
     <SignAssembly>False</SignAssembly>
-    <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <BaseOutputPath>..\bin</BaseOutputPath>
   </PropertyGroup>
